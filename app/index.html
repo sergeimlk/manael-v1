@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+
+    <!-- ═══ PRIMARY SEO ═══ -->
+    <title>Posing Empire — Coaching Posing Bodybuilding Classic & Men's Physique | Manael</title>
+    <meta name="description" content="Posing Empire by Manael — La méthode complète pour maîtriser les poses classiques du bodybuilding. 10 modules, 50+ vidéos : poses, symétrie, transitions, compétition. Rejoins 200+ athlètes sur Skool. Accès gratuit." />
+    <meta name="keywords" content="coaching posing bodybuilding, poses classiques, posing expert, Manael coach, classic physique, men's physique, compétition bodybuilding, Skool coaching, posing empire, symétrie bodybuilding, routine libre, IFBB, FFB" />
+    <meta name="author" content="Manael — Posing Empire" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://posing-empire.fr" />
+
+    <!-- ═══ OPEN GRAPH (Facebook, WhatsApp, etc.) ═══ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Posing Empire" />
+    <meta property="og:title" content="Posing Empire — Domine la Scène. Maîtrise ton Posing." />
+    <meta property="og:description" content="10 modules de coaching posing bodybuilding par Manael. Poses classiques, symétrie, transitions, compétition. Rejoins 200+ athlètes. Accès gratuit sur Skool." />
+    <meta property="og:image" content="/clients/manael/manael.jpg" />
+    <meta property="og:image:alt" content="Manael — Coach Posing Expert Posing Empire" />
+    <meta property="og:url" content="https://posing-empire.fr" />
+    <meta property="og:locale" content="fr_FR" />
+
+    <!-- ═══ TWITTER CARD ═══ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Posing Empire — Coaching Posing Bodybuilding par Manael" />
+    <meta name="twitter:description" content="Maîtrise les poses classiques, la symétrie et la présence scénique. 200+ athlètes coachés. Accès gratuit." />
+    <meta name="twitter:image" content="/clients/manael/manael.jpg" />
+
+    <!-- ═══ STRUCTURED DATA (JSON-LD) ═══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Posing Empire",
+      "description": "Plateforme de coaching posing bodybuilding dirigée par Manael. Modules couvrant les poses classiques, transitions, compétition et accompagnement personnalisé.",
+      "url": "https://posing-empire.fr",
+      "founder": {
+        "@type": "Person",
+        "name": "Manael",
+        "jobTitle": "Coach Posing Expert — Bodybuilding Classique & Men's Physique"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "description": "Accès gratuit à la communauté Skool Posing Empire"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Programme Posing Empire",
+        "itemListElement": [
+          { "@type": "Course", "name": "Les Fondations — Level 1", "description": "Vocabulaire, méthodologie, symétrie, sangle abdominale, dorsaux." },
+          { "@type": "Course", "name": "Classic & Body — Level 2", "description": "Poses, transitions, mandatories, round d'endurance, routine libre." },
+          { "@type": "Course", "name": "The Classic Class — Level 3", "description": "Front, Side, Back poses, poses spécifiques, transitions artistiques." },
+          { "@type": "Course", "name": "Compétition — Level 4", "description": "Attitude scénique, respiration, tan, pump pre-stage, fédérations." },
+          { "@type": "Course", "name": "Sessions & Accompagnement — Level 5", "description": "Sessions 1-1, accompagnement Premium 3 mois, VIP avec Manael." }
+        ]
+      }
+    }
+    </script>
+
+    <!-- ═══ PWA ═══ -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Posing Empire" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#050505" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- ═══ FONTS ═══ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <link rel="icon" href="/clients/manael/logoPE.jpg" type="image/jpeg" />
+    <link rel="apple-touch-icon" href="/clients/manael/logoPE.jpg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Force Cache Clearing -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
