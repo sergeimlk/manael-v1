@@ -3,7 +3,7 @@
 @theme {
   --font-display: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
-  
+
   --color-gold-50: #FFFEF5;
   --color-gold-100: #FFF8E1;
   --color-gold-200: #FFECB3;
@@ -21,48 +21,69 @@
   --color-bg-surface: #1A1A1A;
 }
 
-/* ====== Custom Layout Containers ====== */
+/* ══════════════════════════════════════════════════
+   LAYOUT CONTAINERS
+   ──────────────────────────────────────────────────
+   Single source of truth for horizontal rhythm.
+   Padding grows gently so content never feels
+   cramped on tablets or over-padded on desktops.
+   ══════════════════════════════════════════════════ */
 .main-container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  /* Mobile : au moins 20px de chaque côté */
-  padding-left: clamp(1.25rem, 5vw, 2rem);
-  padding-right: clamp(1.25rem, 5vw, 2rem);
+  padding-left: 1.25rem;
+  /* 20px — mobile */
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .main-container {
+    padding-left: 1.5rem;
+    /* 24px */
+    padding-right: 1.5rem;
+  }
 }
 
 @media (min-width: 768px) {
   .main-container {
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 2rem;
+    /* 32px */
+    padding-right: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .main-container {
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 3rem;
+    /* 48px */
+    padding-right: 3rem;
   }
 }
 
 @media (min-width: 1280px) {
   .main-container {
-    padding-left: 7rem;
-    padding-right: 7rem;
+    padding-left: 4rem;
+    /* 64px */
+    padding-right: 4rem;
   }
 }
 
-.popup-box {
-  width: 90%;
-  max-width: 450px;
-  margin: 0 auto;
-}
-
-/* ====== Global Reset & Base ====== */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
+/* ══════════════════════════════════════════════════
+   GLOBAL RESET & BASE
+   ──────────────────────────────────────────────────
+   IMPORTANT: Ne PAS mettre margin/padding dans le
+   reset *, car en Tailwind v4 les utilities sont dans
+   @layer utilities. Un reset unlayered (* { margin:0 })
+   a une priorité cascade SUPÉRIEURE à @layer utilities,
+   ce qui écraserait tous les utilitaires mt-*, p-*, etc.
+   Tailwind preflight (dans @layer base) gère déjà le
+   reset margin/padding. On garde seulement box-sizing.
+   ══════════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -83,7 +104,40 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ====== Grid Background (Genesis-style) ====== */
+/* ══════════════════════════════════════════════════
+   SECTION VERTICAL RHYTHM
+   ──────────────────────────────────────────────────
+   Consistent vertical spacing between every section
+   ══════════════════════════════════════════════════ */
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* ══════════════════════════════════════════════════
+   GRID BACKGROUND (Hero)
+   ══════════════════════════════════════════════════ */
 .hero-grid-bg {
   position: absolute;
   inset: 0;
@@ -112,7 +166,9 @@ body {
   pointer-events: none;
 }
 
-/* ====== Gold Text Gradient ====== */
+/* ══════════════════════════════════════════════════
+   TEXT GRADIENTS
+   ══════════════════════════════════════════════════ */
 .text-gold-gradient {
   background: linear-gradient(135deg, #FFD54F 0%, #D4A843 30%, #B8942D 60%, #FFD54F 100%);
   -webkit-background-clip: text;
@@ -127,7 +183,9 @@ body {
   background-clip: text;
 }
 
-/* ====== Gold Border Gradient ====== */
+/* ══════════════════════════════════════════════════
+   BORDERS
+   ══════════════════════════════════════════════════ */
 .border-gold {
   border: 1px solid rgba(212, 168, 67, 0.3);
 }
@@ -136,7 +194,9 @@ body {
   border-color: rgba(212, 168, 67, 0.6);
 }
 
-/* ====== Buttons ====== */
+/* ══════════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════════ */
 .btn-primary-gold {
   display: inline-flex;
   align-items: center;
@@ -145,7 +205,7 @@ body {
   padding: 0.875rem 2rem;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #050505;
@@ -191,7 +251,7 @@ body {
   padding: 0.875rem 2rem;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   letter-spacing: 0.03em;
   color: #D4A843;
   background: transparent;
@@ -209,7 +269,9 @@ body {
   box-shadow: 0 4px 20px rgba(212, 168, 67, 0.2);
 }
 
-/* ====== Cards ====== */
+/* ══════════════════════════════════════════════════
+   CARDS
+   ══════════════════════════════════════════════════ */
 .card-glass {
   background: linear-gradient(145deg, rgba(17, 17, 17, 0.8), rgba(13, 13, 13, 0.95));
   border: 1px solid rgba(212, 168, 67, 0.15);
@@ -224,18 +286,23 @@ body {
   box-shadow: 0 12px 40px rgba(212, 168, 67, 0.1);
 }
 
-/* ====== Stars ====== */
+/* ══════════════════════════════════════════════════
+   STARS
+   ══════════════════════════════════════════════════ */
 .star-gold {
   fill: #D4A843;
   stroke: #D4A843;
 }
 
-/* ====== Animations ====== */
+/* ══════════════════════════════════════════════════
+   ANIMATIONS
+   ══════════════════════════════════════════════════ */
 @keyframes fadeUp {
   from {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -243,23 +310,47 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 168, 67, 0.4); }
-  50% { box-shadow: 0 0 0 12px rgba(212, 168, 67, 0); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 168, 67, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 0 12px rgba(212, 168, 67, 0);
+  }
 }
 
 @keyframes slideInFromBottom {
@@ -267,6 +358,7 @@ body {
     opacity: 0;
     transform: translateY(100%) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -293,13 +385,63 @@ body {
   animation: slideInFromBottom 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
 
-/* ====== Scrollbar ====== */
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* ══════════════════════════════════════════════════
+   BUTTON VARIANTS
+   ──────────────────────────────────────────────────
+   .btn-compact : version réduite pour navbar / contextes
+   contraints. Doit être déclaré APRÈS .btn-primary-gold
+   et .btn-secondary-gold pour gagner la cascade unlayered.
+   ══════════════════════════════════════════════════ */
+.btn-compact {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+/* Hero CTA : texte plus grand, padding ~10% plus petit que le défaut */
+.btn-hero {
+  padding: 0.75rem 1.75rem;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════════
+   ACCESSIBILITÉ — FOCUS VISIBLE
+   ──────────────────────────────────────────────────
+   Anneau doré cohérent avec la charte pour la
+   navigation clavier. Masqué au clic souris.
+   ══════════════════════════════════════════════════ */
+/* L'outline suit automatiquement le border-radius de l'élément
+   dans les navigateurs modernes — pas besoin de border-radius ici,
+   cela écraserait le border-radius des boutons arrondis. */
+:focus-visible {
+  outline: 2px solid rgba(212, 168, 67, 0.75);
+  outline-offset: 3px;
+}
+
+/* ══════════════════════════════════════════════════
+   SCROLLBAR
+   ══════════════════════════════════════════════════ */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -317,7 +459,9 @@ body {
   background: rgba(212, 168, 67, 0.5);
 }
 
-/* ====== Form Inputs ====== */
+/* ══════════════════════════════════════════════════
+   FORM INPUTS
+   ══════════════════════════════════════════════════ */
 .input-gold {
   width: 100%;
   padding: 0.7rem 0.875rem;
@@ -343,7 +487,9 @@ body {
   background: #1a1a1a;
 }
 
-/* ====== Popup Overlay ====== */
+/* ══════════════════════════════════════════════════
+   POPUP OVERLAY & MODAL
+   ══════════════════════════════════════════════════ */
 .popup-overlay {
   position: fixed;
   inset: 0;
@@ -354,11 +500,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 1.25rem;
   overflow-y: auto;
 }
 
-/* ====== Popup Modal Box ====== */
 .popup-modal {
   position: relative;
   width: 100%;
@@ -374,17 +519,17 @@ body {
 }
 
 .popup-header {
-  padding: 1.5rem 1.5rem 0;
+  padding: 1.75rem 1.5rem 0.75rem;
   text-align: center;
 }
 
 .popup-body {
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.5rem 1rem;
 }
 
 .popup-footer {
   padding: 0.75rem 1.5rem 1.25rem;
-  border-top: 1px solid rgba(255,255,255,0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .popup-label {
@@ -397,7 +542,9 @@ body {
   margin-bottom: 0.4rem;
 }
 
-/* ====== Lightbox ====== */
+/* ══════════════════════════════════════════════════
+   LIGHTBOX
+   ══════════════════════════════════════════════════ */
 .lightbox-overlay {
   position: fixed;
   inset: 0;
@@ -411,7 +558,9 @@ body {
   cursor: zoom-out;
 }
 
-/* ====== Before/After Slider ====== */
+/* ══════════════════════════════════════════════════
+   BEFORE/AFTER SLIDER
+   ══════════════════════════════════════════════════ */
 .slider-container {
   position: relative;
   width: 100%;
@@ -455,27 +604,26 @@ body {
   transform: scale(0.95);
 }
 
-/* ====== Navbar ====== */
+/* ══════════════════════════════════════════════════
+   NAVBAR
+   ══════════════════════════════════════════════════ */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 1rem 0;
+  padding: 0.875rem 0;
   transition: all 0.3s;
-  background: rgba(5, 5, 5, 0.8);
+  background: rgba(5, 5, 5, 0.85);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(212, 168, 67, 0.08);
 }
 
-/* ====== Section Padding ====== */
-.section-padding {
-  padding-top: clamp(3.5rem, 7vw, 7rem);
-  padding-bottom: clamp(3.5rem, 7vw, 7rem);
-}
-
-/* ====== Review Avatar ====== */
+/* ══════════════════════════════════════════════════
+   REVIEW AVATAR
+   ══════════════════════════════════════════════════ */
 .review-avatar {
   width: 48px;
   height: 48px;
@@ -491,7 +639,9 @@ body {
   border: 2px solid rgba(212, 168, 67, 0.5);
 }
 
-/* ====== Pose Card ====== */
+/* ══════════════════════════════════════════════════
+   POSE CARD
+   ══════════════════════════════════════════════════ */
 .pose-card {
   border-radius: 16px;
   overflow: hidden;

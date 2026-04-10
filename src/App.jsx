@@ -11,6 +11,16 @@ const FORM_ENTRIES = {
   instagram: 'entry.0000000004',
 }
 const SKOOL_URL = 'https://www.skool.com/manael'
+const GOOGLE_DRIVE_PDF_URL = 'https://drive.google.com/file/d/YOUR_PDF_FILE_ID/view'
+
+const COACHED_ATHLETES = [
+  { name: 'Mehdi R.', handle: '@mehdi.physique', title: 'IFBB Pro Classic' },
+  { name: 'Antoine L.', handle: '@antoine_stage', title: 'Champion de France' },
+  { name: 'Dylan K.', handle: '@dylan.posing', title: 'NPC Competitor' },
+  { name: 'Lucas M.', handle: '@lucas.classic', title: 'Junior IFBB Elite' },
+  { name: 'Rayan B.', handle: '@rayan_bbfit', title: "Men's Physique Pro" },
+  { name: 'Nathan S.', handle: '@nathan.staging', title: 'Classic Physique' },
+]
 
 const POSES = Array.from({ length: 16 }, (_, i) => ({
   id: i + 1,
@@ -24,21 +34,24 @@ const REVIEWS = [
     role: 'Classic Physique — Compétiteur Amateur',
     avatar: '/clients/client_1.png',
     stars: 5,
-    comment: "Grâce à Posing Empire, j'ai compris enfin la logique derrière chaque pose. La méthode de Manael m'a permis de gagner 3 places à ma première régionale. Le module compétition est une mine d'or.",
+    comment:
+      "Avant Posing Empire, je posais sans comprendre pourquoi. En 3 semaines, j'avais une logique derrière chaque mouvement. Résultat : +3 places à ma première régionale. Le module Compétition seul vaut l'accès.",
   },
   {
     name: 'Sophie M.',
     role: "Men's Physique — Athlète IFBB",
     avatar: '/clients/client_2.png',
     stars: 5,
-    comment: "J'ai suivi les modules Fondations et Classic & Body en 3 semaines. Les corrections de symétrie m'ont bluffé. Manael explique avec une précision chirurgicale. Un investissement qui vaut chaque centime.",
+    comment:
+      "Les corrections de symétrie ont tout changé pour moi. Manael identifie en quelques secondes ce que d'autres coachs ne voient jamais. Précision chirurgicale, progressions réelles. Je recommande sans hésiter.",
   },
   {
     name: 'Thomas D.',
     role: 'Bodybuilder — Pro Card Holder',
     avatar: '/clients/client_3.png',
     stars: 5,
-    comment: "Le module mobilité + activation a changé ma façon de préparer mes poses. Plus de douleurs, plus de fluidité sur scène. La section Sessions & Accompagnement avec Manael directement, c'est le top.",
+    comment:
+      "Le module Mobilité & Activation m'a libéré de douleurs que j'avais depuis des années. Mes poses sont plus fluides, plus stables. Travailler directement avec Manael en session 1-1, c'est une autre dimension.",
   },
 ]
 
@@ -47,37 +60,37 @@ const MODULES = [
     level: 'Level 1',
     icon: '🏗️',
     title: 'Les Fondations',
-    desc: 'Vocabulaire du poseur, méthodologie, setup, symétrie, sangle abdominale. Les bases pour ne plus poser comme un amateur.',
+    desc: "Vocabulaire du poseur, setup corporel, symétrie et sangle abdominale. La base sans laquelle tout s'effondre sur scène.",
   },
   {
     level: 'Level 2',
     icon: '💪',
     title: 'Classic & Body',
-    desc: 'Placements de jambes, quarts de tour, mandatories, transitions, round d\'endurance et routine libre.',
+    desc: "Placements de jambes, quarts de tour, mandatories et round d'endurance. Le cœur du posing compétitif.",
   },
   {
     level: 'Level 3',
     icon: '👑',
     title: 'The Classic Class',
-    desc: 'Front poses, Side & ¾, Back poses, poses spécifiques et transitions artistiques de haut niveau.',
+    desc: 'Front, Side & ¾, Back poses et transitions artistiques. Le niveau où les vrais champions se distinguent.',
   },
   {
     level: 'Level 4',
     icon: '🏆',
     title: 'Compétition',
-    desc: 'Déroulement d\'une compétition, attitude scénique, respiration, le tan, pump pre-stage, fédérations.',
+    desc: "Attitude scénique, respiration, tan, pump pre-stage et gestion des fédérations. Rien ne te surprendra le jour J.",
   },
   {
     level: 'Level 5',
     icon: '🎯',
     title: 'Sessions & Accompagnement',
-    desc: 'Sessions 1-1 avec coach certifié, accompagnement Premium 3 mois, VIP avec Manael, mentoring coachs.',
+    desc: "Coaching 1-1 avec Manael, suivi Premium 3 mois ou accès VIP. Pour aller plus loin avec un œil d'expert.",
   },
   {
     level: 'Bonus',
     icon: '⚡',
     title: 'Mobilité & Vacuum',
-    desc: 'Mobilité de hanche, colonne, rotations, activation musculaire complète. Et le module Vacuum — l\'arme secrète.',
+    desc: "Mobilité de hanche, colonne et activation musculaire complète. Plus le module Vacuum — l'arme secrète des pros.",
   },
 ]
 
@@ -124,8 +137,45 @@ function InstagramIcon() {
   )
 }
 
+function DownloadIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" x2="12" y1="15" y2="3" />
+    </svg>
+  )
+}
+
+/* ─── COACH BANNER ─── */
+function CoachBanner() {
+  return (
+    <div className="relative overflow-hidden bg-gradient-to-r from-gold-900/40 via-gold-800/20 to-gold-900/40 border-y border-gold-500/15">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.06),transparent_70%)]" />
+      <div className="main-container relative z-10 py-5 sm:py-6">
+        <p className="text-center text-xs text-gold-400 uppercase tracking-[0.15em] font-semibold mb-4">
+          Coachés par Manael · Résultats prouvés en compétition
+        </p>
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:gap-x-8">
+          {COACHED_ATHLETES.map((athlete, i) => (
+            <div key={i} className="flex items-center gap-2 group">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-gold-400 to-gold-700 flex items-center justify-center text-[10px] font-bold text-bg-primary flex-shrink-0">
+                {athlete.name.charAt(0)}
+              </div>
+              <div className="leading-tight">
+                <p className="text-xs font-semibold text-white group-hover:text-gold-400 transition-colors">{athlete.name}</p>
+                <p className="text-[10px] text-gold-500/80">{athlete.handle}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ─── NAVBAR ─── */
-function Navbar({ onCTA }) {
+function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50)
@@ -139,7 +189,7 @@ function Navbar({ onCTA }) {
         <div className="flex items-center gap-2.5">
           <img
             src="/clients/manael/logoPE.jpg"
-            alt="Posing Empire"
+            alt="Logo Posing Empire"
             className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-contain bg-black"
           />
           <span className="font-bold text-sm sm:text-base tracking-widest text-gold-gradient uppercase">
@@ -147,21 +197,23 @@ function Navbar({ onCTA }) {
           </span>
         </div>
         <div className="flex items-center gap-3 sm:gap-5">
-          <a href="#programme" className="hidden sm:block text-sm text-gray-300 hover:text-gold-400 transition-colors">
-            Programme
-          </a>
           <a href="#poses" className="hidden sm:block text-sm text-gray-300 hover:text-gold-400 transition-colors">
             Poses
+          </a>
+          <a href="#programme" className="hidden sm:block text-sm text-gray-300 hover:text-gold-400 transition-colors">
+            Programme
           </a>
           <a href="#avis" className="hidden sm:block text-sm text-gray-300 hover:text-gold-400 transition-colors">
             Avis
           </a>
-          <button
-            onClick={onCTA}
-            className="btn-primary-gold text-xs px-4 py-2"
+          <a
+            href={SKOOL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary-gold btn-compact"
           >
             Rejoindre
-          </button>
+          </a>
         </div>
       </div>
     </nav>
@@ -169,11 +221,11 @@ function Navbar({ onCTA }) {
 }
 
 /* ─── HERO ─── */
-function Hero({ onCTA }) {
+function Hero({ onPDF }) {
   return (
     <header
       id="hero"
-      className="relative w-full pt-[120px] sm:pt-[140px] md:pt-[160px] lg:pt-[180px] pb-14 sm:pb-20 lg:pb-28 overflow-hidden"
+      className="relative w-full pt-[124px] sm:pt-[144px] lg:pt-[160px] pb-16 sm:pb-20 lg:pb-24 overflow-hidden"
     >
       <div className="hero-grid-bg">
         <div className="grid-overlay" />
@@ -181,18 +233,18 @@ function Hero({ onCTA }) {
       </div>
 
       <div className="main-container relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-16">
 
           {/* ── Texte ── */}
-          <div className="w-full text-center lg:text-left animate-fade-up">
+          <div className="w-full text-center lg:text-left animate-fade-up order-2 lg:order-1">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold-500/30 bg-gold-900/20 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
-              <span className="text-xs text-gold-300 font-medium">Coaching Exclusif · Places Limitées</span>
+              <span className="text-xs text-gold-300 font-medium">PDF Gratuit · 16 Poses Classiques Offertes</span>
             </div>
 
-            {/* H1 — taille réduite et maîtrisée */}
-            <h1 className="font-black tracking-tighter leading-[1.1] mb-5 text-[clamp(1.75rem,6vw,3.5rem)]">
+            {/* H1 */}
+            <h1 className="font-black tracking-tighter leading-[1.08] mb-6 text-[clamp(1.75rem,5.5vw,3.25rem)]">
               DOMINE LA{' '}
               <span className="text-gold-gradient">SCÈNE.</span>
               <br />
@@ -200,16 +252,20 @@ function Hero({ onCTA }) {
             </h1>
 
             {/* Accroche */}
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-lg mx-auto lg:mx-0 mb-6 leading-relaxed">
-              La seule méthode en ligne qui t'apprend les{' '}
-              <strong className="text-white">poses classiques, la symétrie et les transitions</strong>
-              {' '}pour{' '}
-              <strong className="text-gold-400">gratter 3 places minimum</strong> dès ta prochaine compétition.
+            <p className="text-gray-300 text-sm sm:text-base max-w-lg mx-auto lg:mx-0 mb-6 leading-relaxed">
+              La méthode conçue par un coach IFBB certifié pour faire de ton posing une{' '}
+              <strong className="text-white">arme compétitive</strong>
+              {' '}— poses classiques, symétrie parfaite, transitions fluides.{' '}
+              <strong className="text-gold-400">+3 places minimum</strong> dès ta prochaine compétition.
             </p>
 
             {/* Checklist */}
-            <ul className="space-y-2 mb-7 max-w-xs mx-auto lg:mx-0 text-left">
-              {['10 modules · 50+ vidéos exclusives', 'Posing, transitions & routine libre', 'Accompagnement 1-1 disponible'].map((item, i) => (
+            <ul className="space-y-2.5 mb-8 max-w-sm mx-auto lg:mx-0 text-left">
+              {[
+                '10 modules progressifs · 50+ vidéos HD exclusives',
+                'Poses, transitions & présence scénique maîtrisée',
+                'Coaching 1-1 disponible directement avec Manael',
+              ].map((item, i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm text-gray-300">
                   <svg className="flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" strokeWidth="2.5" strokeLinecap="round">
                     <path d="M20 6 9 17l-5-5" />
@@ -220,17 +276,17 @@ function Hero({ onCTA }) {
             </ul>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
-              <button onClick={onCTA} className="btn-primary-gold animate-pulse-gold w-full sm:w-auto">
-                Rejoindre Posing Empire <ArrowRight />
+            <div className="flex flex-col sm:flex-row items-center gap-3.5 justify-center lg:justify-start">
+              <button onClick={onPDF} className="btn-primary-gold btn-hero animate-pulse-gold w-full sm:w-auto">
+                Télécharger les 16 Poses Gratuitement <DownloadIcon />
               </button>
-              <button onClick={onCTA} className="btn-secondary-gold w-full sm:w-auto">
-                Accès Gratuit →
-              </button>
+              <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary-gold btn-hero w-full sm:w-auto">
+                Accéder au Programme →
+              </a>
             </div>
 
             {/* Social proof */}
-            <div className="mt-7 flex items-center gap-3 justify-center lg:justify-start">
+            <div className="mt-8 flex items-center gap-3 justify-center lg:justify-start">
               <div className="flex -space-x-2">
                 {['K', 'S', 'T', 'A'].map((l, i) => (
                   <div
@@ -242,26 +298,27 @@ function Hero({ onCTA }) {
                 ))}
               </div>
               <p className="text-xs sm:text-sm text-gray-400">
-                Rejoint par <strong className="text-white">200+ athlètes</strong>
+                Déjà <strong className="text-white">200+ athlètes</strong> formés à la méthode
               </p>
             </div>
           </div>
 
           {/* ── Photo Coach ── */}
-          <div className="w-full max-w-[280px] sm:max-w-sm mx-auto lg:max-w-none lg:mx-0 animate-float flex justify-center lg:justify-end">
+          <div className="w-full max-w-[280px] sm:max-w-sm lg:max-w-md mx-auto lg:mx-0 animate-float flex justify-center lg:justify-end order-1 lg:order-2">
             <div className="relative w-full">
               <div className="absolute -inset-3 bg-gradient-to-br from-gold-400/20 via-gold-600/10 to-transparent rounded-3xl blur-2xl" />
               <div className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-gold-900/30">
                 <img
                   src="/clients/manael/manael.jpg"
-                  alt="Manael — Fondateur Posing Empire"
+                  alt="Manael — Coach Posing Expert, Fondateur de Posing Empire"
                   className="w-full h-auto object-cover"
                   loading="eager"
+                  fetchPriority="high"
                 />
                 <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
                   <p className="font-bold text-base text-white text-center">Manael</p>
                   <p className="text-gold-400 text-xs font-medium text-center uppercase tracking-widest">
-                    Fondateur · Posing Empire
+                    Coach Posing · Fondateur Posing Empire
                   </p>
                 </div>
               </div>
@@ -277,13 +334,13 @@ function Hero({ onCTA }) {
 /* ─── SECTION HEADING helper ─── */
 function SectionHeading({ white, gold, subtitle }) {
   return (
-    <div className="text-center mb-10 md:mb-14 px-4">
-      <h2 className="font-black tracking-tighter text-[clamp(1.6rem,5vw,3rem)] leading-tight mb-3">
+    <div className="text-center mb-10 md:mb-14">
+      <h2 className="font-black tracking-tight text-[clamp(1.5rem,4.5vw,2.75rem)] leading-[1.1] mb-4">
         <span className="text-white-gradient">{white}</span>
         <span className="text-gold-gradient">{gold}</span>
       </h2>
       {subtitle && (
-        <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto text-center">
+        <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
           {subtitle}
         </p>
       )}
@@ -292,7 +349,7 @@ function SectionHeading({ white, gold, subtitle }) {
 }
 
 /* ─── PROGRAMME ─── */
-function Programme({ onCTA }) {
+function Programme() {
   return (
     <section id="programme" className="section-padding relative bg-black/40">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -302,18 +359,18 @@ function Programme({ onCTA }) {
         <SectionHeading
           white="LE PROGRAMME "
           gold="COMPLET"
-          subtitle="Du débutant au compétiteur elite — tout ce qu'il faut pour dominer chaque étape de ta carrière en bodybuilding."
+          subtitle="De tes premières poses aux finales nationales — chaque module te rapproche du podium."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {MODULES.map((mod, i) => (
             <article
               key={i}
-              className="card-glass p-5 opacity-0 animate-fade-up group"
+              className="card-glass p-5 sm:p-6 opacity-0 animate-fade-up group"
               style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'forwards' }}
             >
               <div className="flex items-start gap-3">
-                <span className="text-xl leading-none mt-0.5 flex-shrink-0">{mod.icon}</span>
+                <span className="text-xl leading-none mt-0.5 flex-shrink-0" role="img" aria-hidden="true">{mod.icon}</span>
                 <div className="min-w-0">
                   <span className="text-xs font-bold text-gold-500 uppercase tracking-widest mb-1 block">{mod.level}</span>
                   <h3 className="font-bold text-white text-sm sm:text-base mb-1.5 group-hover:text-gold-400 transition-colors">
@@ -326,11 +383,11 @@ function Programme({ onCTA }) {
           ))}
         </div>
 
-        <div className="text-center mt-10">
-          <button onClick={onCTA} className="btn-primary-gold">
+        <div className="text-center mt-10 sm:mt-12">
+          <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold">
             Accéder au Programme Complet <ArrowRight />
-          </button>
-          <p className="text-gray-500 text-xs mt-2">Accès gratuit · Sans engagement</p>
+          </a>
+          <p className="text-gray-500 text-xs mt-2">Accès sur Skool · Rejoins 200+ athlètes</p>
         </div>
       </div>
     </section>
@@ -338,17 +395,17 @@ function Programme({ onCTA }) {
 }
 
 /* ─── POSES GALLERY ─── */
-function PosesGallery({ onImageClick }) {
+function PosesGallery({ onImageClick, onPDF }) {
   return (
     <section id="poses" className="section-padding relative">
       <div className="main-container">
         <SectionHeading
           white="LES 16 POSES "
           gold="CLASSIQUES"
-          subtitle="Chaque pose enseignée dans le programme avec les placements exacts, les erreurs à éviter et les corrections de symétrie."
+          subtitle="Placements précis, erreurs à éviter, corrections de symétrie — chaque pose décortiquée pour que tu ne laisses aucun point sur la table."
         />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5">
           {POSES.map((pose, index) => (
             <div
               key={pose.id}
@@ -363,7 +420,7 @@ function PosesGallery({ onImageClick }) {
               <div className="aspect-[3/4] overflow-hidden">
                 <img
                   src={pose.src}
-                  alt={`${pose.title} — Pose classique bodybuilding`}
+                  alt={`${pose.title} — Pose classique bodybuilding Posing Empire`}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -373,6 +430,14 @@ function PosesGallery({ onImageClick }) {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Download CTA */}
+        <div className="text-center mt-10 sm:mt-12">
+          <button onClick={onPDF} className="btn-primary-gold">
+            Télécharger le PDF des 16 Poses <DownloadIcon />
+          </button>
+          <p className="text-gray-500 text-xs mt-2">100% gratuit · PDF téléchargeable instantanément</p>
         </div>
       </div>
     </section>
@@ -388,10 +453,10 @@ function Reviews() {
         <SectionHeading
           white="ILS ONT "
           gold="DOMINÉ LA SCÈNE"
-          subtitle="200+ athlètes ont déjà transformé leur posing avec Posing Empire. Voici leurs retours."
+          subtitle="Des compétiteurs amateurs aux pros IFBB — voici ce que la méthode Posing Empire a concrètement changé pour eux."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
           {REVIEWS.map((review, i) => (
             <article
               key={i}
@@ -399,18 +464,18 @@ function Reviews() {
               style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'forwards' }}
             >
               {/* Stars */}
-              <div className="flex items-center gap-0.5 mb-3">
+              <div className="flex items-center gap-0.5 mb-3" aria-label={`${review.stars} étoiles sur 5`}>
                 {Array.from({ length: review.stars }).map((_, j) => <StarIcon key={j} />)}
               </div>
 
               {/* Quote */}
               <blockquote className="text-gray-300 text-sm sm:text-[0.9rem] leading-relaxed mb-4 flex-1">
-                "{review.comment}"
+                &ldquo;{review.comment}&rdquo;
               </blockquote>
 
               {/* Author */}
-              <footer className="flex items-center gap-3 pt-4 border-t border-white/5">
-                <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-gold-500/40 flex-shrink-0">
+              <footer className="flex items-center gap-3 pt-4 mt-auto border-t border-white/5">
+                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gold-500/40 flex-shrink-0 bg-gradient-to-br from-gold-400 to-gold-700">
                   <img src={review.avatar} alt={review.name} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div>
@@ -463,7 +528,7 @@ function BeforeAfter() {
         <SectionHeading
           white="LA TRANSFORMATION "
           gold="EN DIRECT"
-          subtitle="Glisse le curseur pour voir la différence. Avant vs Après le coaching Posing Empire."
+          subtitle="Une différence visible à l'œil nu. Glisse le curseur et juge toi-même l'impact du coaching Posing Empire."
         />
         <div className="flex justify-center">
           <div
@@ -471,13 +536,17 @@ function BeforeAfter() {
             className="slider-container"
             onMouseDown={handleMouseDown}
             onTouchStart={handleMouseDown}
+            role="img"
+            aria-label={`Comparaison avant/après coaching posing : curseur à ${Math.round(sliderPos)}%`}
           >
-            <img src="/clients/avant/apres/apres.png" alt="Avant coaching" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
+            {/* Image de fond : Avant */}
+            <img src="/clients/avant/apres/avant.png" alt="Posing avant le coaching Posing Empire" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
             <div className="absolute top-3 left-3 bg-black/70 text-white px-2.5 py-1 rounded-full text-xs font-bold uppercase backdrop-blur-sm z-10 border border-white/10">
               Avant
             </div>
+            {/* Overlay clipé : Après */}
             <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}>
-              <img src="/clients/avant/apres/avant.png" alt="Après coaching" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
+              <img src="/clients/avant/apres/apres.png" alt="Posing après le coaching Posing Empire" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
               <div className="absolute top-3 right-3 bg-gold-600/80 text-white px-2.5 py-1 rounded-full text-xs font-bold uppercase backdrop-blur-sm border border-gold-400/30">
                 Après
               </div>
@@ -493,7 +562,7 @@ function BeforeAfter() {
 }
 
 /* ─── POPUP FORM ─── */
-function FormPopup({ onClose }) {
+function FormPopup({ onClose, mode = 'pdf' }) {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', instagram: '' })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -539,8 +608,8 @@ function FormPopup({ onClose }) {
       onClick={(e) => e.target === e.currentTarget && onClose()}
       role="dialog"
       aria-modal="true"
+      aria-label={mode === 'pdf' ? 'Télécharger les 16 poses gratuitement' : 'Rejoindre Posing Empire'}
     >
-      {/* Wrapper centrage */}
       <div className="popup-modal animate-slide-in">
         {/* Ligne dorée sommitale */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent" />
@@ -560,20 +629,28 @@ function FormPopup({ onClose }) {
             <div className="popup-header">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold-500/30 bg-gold-900/30 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
-                <span className="text-xs text-gold-300 font-medium">Accès Gratuit · Sans Engagement</span>
+                <span className="text-xs text-gold-300 font-medium">
+                  {mode === 'pdf' ? 'PDF Gratuit · Sans Engagement' : 'Posing Empire · Skool'}
+                </span>
               </div>
               <h3 className="font-black text-xl sm:text-2xl text-white mb-1.5 tracking-tight">
-                Rejoins <span className="text-gold-gradient">Posing Empire</span>
+                {mode === 'pdf'
+                  ? <><span className="text-gold-gradient">16 Poses Classiques</span> — PDF Offert</>
+                  : <>Rejoins <span className="text-gold-gradient">Posing Empire</span></>
+                }
               </h3>
               <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
-                Accède aux modules exclusifs et à la communauté Skool — gratuitement.
+                {mode === 'pdf'
+                  ? 'Entre tes informations pour recevoir immédiatement le PDF des 16 poses classiques.'
+                  : 'Crée ton accès et rejoins 200+ athlètes sur la plateforme Posing Empire.'
+                }
               </p>
             </div>
 
             {/* Formulaire */}
             <form onSubmit={handleSubmit} className="popup-body space-y-3">
               <div>
-                <label htmlFor="p-name" className="popup-label">Nom complet *</label>
+                <label htmlFor="p-name" className="popup-label">Prénom et Nom *</label>
                 <input
                   id="p-name" type="text" name="name"
                   value={formData.name} onChange={handleChange}
@@ -614,16 +691,21 @@ function FormPopup({ onClose }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary-gold w-full py-3 text-sm mt-1 disabled:opacity-50"
+                className="btn-primary-gold w-full mt-2 disabled:opacity-50"
               >
-                {loading ? 'Inscription…' : 'Rejoindre Skool Gratuitement'}
-                {!loading && <ArrowRight />}
+                {loading
+                  ? 'Envoi en cours…'
+                  : mode === 'pdf'
+                    ? 'Recevoir le PDF Gratuitement'
+                    : 'Rejoindre Posing Empire'
+                }
+                {!loading && (mode === 'pdf' ? <DownloadIcon /> : <ArrowRight />)}
               </button>
             </form>
 
             <div className="popup-footer">
               <p className="text-xs text-gray-600 text-center">
-                🔒 Données protégées · Jamais partagées
+                🔒 Données confidentielles · Jamais partagées · Désabonnement en 1 clic
               </p>
             </div>
           </>
@@ -635,13 +717,27 @@ function FormPopup({ onClose }) {
                 <path d="M20 6 9 17l-5-5" />
               </svg>
             </div>
-            <h3 className="font-black text-xl text-white mb-2">Bienvenue ! 🎉</h3>
-            <p className="text-gray-400 text-sm mb-5 leading-relaxed">
-              Tu es inscrit ! Rejoins maintenant la communauté Skool pour accéder au programme complet.
-            </p>
-            <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex">
-              Accéder à Posing Empire <ArrowRight />
-            </a>
+            {mode === 'pdf' ? (
+              <>
+                <h3 className="font-black text-xl text-white mb-2">C&apos;est parti !</h3>
+                <p className="text-gray-400 text-sm mb-5 leading-relaxed">
+                  Ton PDF des 16 poses classiques est prêt. Clique ci-dessous pour le télécharger maintenant.
+                </p>
+                <a href={GOOGLE_DRIVE_PDF_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex">
+                  Ouvrir mon PDF <DownloadIcon />
+                </a>
+              </>
+            ) : (
+              <>
+                <h3 className="font-black text-xl text-white mb-2">Bienvenue dans l&apos;Empire !</h3>
+                <p className="text-gray-400 text-sm mb-5 leading-relaxed">
+                  Ton accès à Posing Empire t&apos;attend sur Skool. Rejoins la communauté maintenant.
+                </p>
+                <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex">
+                  Accéder à Posing Empire <ArrowRight />
+                </a>
+              </>
+            )}
             <button onClick={onClose} className="block mx-auto mt-3 text-sm text-gray-500 hover:text-gold-400 transition-colors">
               Fermer
             </button>
@@ -673,18 +769,18 @@ function Lightbox({ initialIndex, onClose }) {
 
   return (
     <div className="lightbox-overlay animate-fade-in" onClick={onClose}>
-      <button onClick={handlePrev} className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 p-2.5 sm:p-3.5 rounded-full bg-black/60 hover:bg-gold-600/80 text-white transition-all z-50 border border-white/10" aria-label="Précédente">
+      <button onClick={handlePrev} className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 p-2.5 sm:p-3.5 rounded-full bg-black/60 hover:bg-gold-600/80 text-white transition-all z-50 border border-white/10" aria-label="Pose précédente">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m15 18-6-6 6-6" /></svg>
       </button>
 
       <div className="w-full max-w-4xl h-full flex items-center justify-center relative" onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute -top-10 right-0 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-50" aria-label="Fermer">
+        <button onClick={onClose} className="absolute -top-10 right-0 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-50" aria-label="Fermer la galerie">
           <CloseIcon />
         </button>
         <img
           key={pose.id}
           src={pose.src}
-          alt={`${pose.title} — Posing Empire`}
+          alt={`${pose.title} — Pose classique bodybuilding Posing Empire`}
           className="max-w-full max-h-[85vh] rounded-xl border border-gold-500/20 shadow-2xl object-contain animate-fade-in"
         />
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur border border-gold-500/30">
@@ -694,7 +790,7 @@ function Lightbox({ initialIndex, onClose }) {
         </div>
       </div>
 
-      <button onClick={handleNext} className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 p-2.5 sm:p-3.5 rounded-full bg-black/60 hover:bg-gold-600/80 text-white transition-all z-50 border border-white/10" aria-label="Suivante">
+      <button onClick={handleNext} className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 p-2.5 sm:p-3.5 rounded-full bg-black/60 hover:bg-gold-600/80 text-white transition-all z-50 border border-white/10" aria-label="Pose suivante">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m9 18 6-6-6-6" /></svg>
       </button>
     </div>
@@ -702,24 +798,26 @@ function Lightbox({ initialIndex, onClose }) {
 }
 
 /* ─── FOOTER ─── */
-function Footer({ onCTA }) {
+function Footer() {
   return (
-    <footer className="py-10 md:py-14 bg-black border-t border-gold-500/10">
+    <footer className="section-padding bg-black border-t border-gold-500/10">
       <div className="main-container text-center">
-        <h2 className="font-black tracking-widest text-xl sm:text-2xl text-gold-gradient mb-1 uppercase">POSING EMPIRE</h2>
-        <p className="text-gray-500 text-sm mb-6">Coach Posing Expert · Bodybuilding Classique · Men's Physique</p>
+        <h2 className="font-black tracking-widest text-xl sm:text-2xl text-gold-gradient mb-2 uppercase">POSING EMPIRE</h2>
+        <p className="text-gray-500 text-sm mb-8">La référence du coaching posing bodybuilding en France · Classic & Men&apos;s Physique</p>
 
-        <button onClick={onCTA} className="btn-primary-gold mb-6">
-          Rejoindre Gratuitement <ArrowRight />
-        </button>
+        <div className="flex justify-center mb-8">
+          <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold">
+            Rejoindre Posing Empire <ArrowRight />
+          </a>
+        </div>
 
-        <div className="flex justify-center gap-3 mb-6">
-          <a href="https://www.instagram.com/manael" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-white/5 rounded-full hover:bg-gold-600/20 hover:text-gold-400 transition-all text-gray-400" aria-label="Instagram Manael">
+        <div className="flex justify-center gap-3 mb-8">
+          <a href="https://www.instagram.com/manael" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-white/5 rounded-full hover:bg-gold-600/20 hover:text-gold-400 transition-all text-gray-400" aria-label="Instagram de Manael — Posing Empire">
             <InstagramIcon />
           </a>
         </div>
 
-        <p className="text-gray-700 text-xs">© {new Date().getFullYear()} Posing Empire by Manael. Tous droits réservés.</p>
+        <p className="text-gray-600 text-xs">&copy; {new Date().getFullYear()} Posing Empire by Manael. Tous droits réservés.</p>
       </div>
     </footer>
   )
@@ -727,29 +825,31 @@ function Footer({ onCTA }) {
 
 /* ─── APP ─── */
 function App() {
-  const [showPopup, setShowPopup] = useState(false)
+  const [popupMode, setPopupMode] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
 
+  // Auto-popup after 8s pour proposer le PDF gratuit
   useEffect(() => {
-    const t = setTimeout(() => setShowPopup(true), 6000)
+    const t = setTimeout(() => setPopupMode('pdf'), 8000)
     return () => clearTimeout(t)
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = (showPopup || lightboxIndex !== null) ? 'hidden' : ''
-  }, [showPopup, lightboxIndex])
+    document.body.style.overflow = (popupMode || lightboxIndex !== null) ? 'hidden' : ''
+  }, [popupMode, lightboxIndex])
 
   return (
     <div className="min-h-screen bg-bg-primary text-white">
-      <Navbar onCTA={() => setShowPopup(true)} />
-      <Hero onCTA={() => setShowPopup(true)} />
-      <Programme onCTA={() => setShowPopup(true)} />
-      <PosesGallery onImageClick={setLightboxIndex} />
+      <Navbar />
+      <Hero onPDF={() => setPopupMode('pdf')} />
+      <CoachBanner />
+      <PosesGallery onImageClick={setLightboxIndex} onPDF={() => setPopupMode('pdf')} />
+      <Programme />
       <Reviews />
       <BeforeAfter />
-      <Footer onCTA={() => setShowPopup(true)} />
+      <Footer />
 
-      {showPopup && <FormPopup onClose={() => setShowPopup(false)} />}
+      {popupMode && <FormPopup mode={popupMode} onClose={() => setPopupMode(false)} />}
       {lightboxIndex !== null && <Lightbox initialIndex={lightboxIndex} onClose={() => setLightboxIndex(null)} />}
     </div>
   )
