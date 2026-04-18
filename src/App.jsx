@@ -10,16 +10,16 @@ const FORM_ENTRIES = {
   phone: 'entry.0000000003',
   instagram: 'entry.0000000004',
 }
-const SKOOL_URL = 'https://www.skool.com/manael'
+const SKOOL_URL = 'https://www.skool.com/'
 const GOOGLE_DRIVE_PDF_URL = 'https://drive.google.com/file/d/YOUR_PDF_FILE_ID/view'
 
 const COACHED_ATHLETES = [
-  { name: 'Mehdi R.', handle: '@mehdi.physique', title: 'IFBB Pro Classic' },
-  { name: 'Antoine L.', handle: '@antoine_stage', title: 'Champion de France' },
-  { name: 'Dylan K.', handle: '@dylan.posing', title: 'NPC Competitor' },
-  { name: 'Lucas M.', handle: '@lucas.classic', title: 'Junior IFBB Elite' },
-  { name: 'Rayan B.', handle: '@rayan_bbfit', title: "Men's Physique Pro" },
-  { name: 'Nathan S.', handle: '@nathan.staging', title: 'Classic Physique' },
+  { name: 'Azriel', handle: '@azrielmmn', title: 'IFBB Pro Classic' },
+  { name: 'Yann L.', handle: '@yann.let', title: 'Champion de France' },
+  { name: 'Barbiscotto', handle: '@barbiscotto_vet_wnbfpro', title: 'NPC Competitor' },
+  { name: 'Imajor', handle: '@imajor_classic', title: 'Junior IFBB Elite' },
+  { name: 'Doc Athletic', handle: '@docathletic', title: "Men's Physique Pro" },
+  { name: 'Roby', handle: '@roby_sxm971', title: 'Classic Physique' },
 ]
 
 const POSES = Array.from({ length: 16 }, (_, i) => ({
@@ -30,69 +30,29 @@ const POSES = Array.from({ length: 16 }, (_, i) => ({
 
 const REVIEWS = [
   {
-    name: 'Karim B.',
-    role: 'Classic Physique — Compétiteur Amateur',
-    avatar: '/clients/client_1.png',
+    name: 'Azriel',
+    role: 'IFBB Pro Classic',
+    avatarHandle: 'azrielmmn',
     stars: 5,
-    comment:
-      "Avant Posing Empire, je posais sans comprendre pourquoi. En 3 semaines, j'avais une logique derrière chaque mouvement. Résultat : +3 places à ma première régionale. Le module Compétition seul vaut l'accès.",
+    comment: "Les corrections vidéos en live font toute la différence. Manaël identifie le moindre défaut d'asymétrie à travers l'écran et corrige ma posture en direct chaque semaine. C'est du vrai coaching 1-1 ultra précis qui te transforme.",
   },
   {
-    name: 'Sophie M.',
-    role: "Men's Physique — Athlète IFBB",
-    avatar: '/clients/client_2.png',
+    name: 'Yann L.',
+    role: 'Champion de France',
+    avatarHandle: 'yann.let',
     stars: 5,
-    comment:
-      "Les corrections de symétrie ont tout changé pour moi. Manael identifie en quelques secondes ce que d'autres coachs ne voient jamais. Précision chirurgicale, progressions réelles. Je recommande sans hésiter.",
+    comment: "Le suivi live sur le Skool est inestimable. Avoir des retours directs chaque semaine pour revoir mes poses et mes transitions m'a donné une longueur d'avance colossale et la confiance indispensable pour décrocher mon titre.",
   },
   {
-    name: 'Thomas D.',
-    role: 'Bodybuilder — Pro Card Holder',
-    avatar: '/clients/client_3.png',
+    name: 'Roby',
+    role: 'Classic Physique',
+    avatarHandle: 'roby_sxm971',
     stars: 5,
-    comment:
-      "Le module Mobilité & Activation m'a libéré de douleurs que j'avais depuis des années. Mes poses sont plus fluides, plus stables. Travailler directement avec Manael en session 1-1, c'est une autre dimension.",
+    comment: "Rien ne remplace le feedback instantané du coaching hebdomadaire. Ces sessions live ont métamorphosé ma prestance scénique. Pouvoir réajuster mes angles directement face à la caméra a clairement débloqué mon potentiel.",
   },
 ]
 
-const MODULES = [
-  {
-    level: 'Level 1',
-    icon: '🏗️',
-    title: 'Les Fondations',
-    desc: "Vocabulaire du poseur, setup corporel, symétrie et sangle abdominale. La base sans laquelle tout s'effondre sur scène.",
-  },
-  {
-    level: 'Level 2',
-    icon: '💪',
-    title: 'Classic & Body',
-    desc: "Placements de jambes, quarts de tour, mandatories et round d'endurance. Le cœur du posing compétitif.",
-  },
-  {
-    level: 'Level 3',
-    icon: '👑',
-    title: 'The Classic Class',
-    desc: 'Front, Side & ¾, Back poses et transitions artistiques. Le niveau où les vrais champions se distinguent.',
-  },
-  {
-    level: 'Level 4',
-    icon: '🏆',
-    title: 'Compétition',
-    desc: "Attitude scénique, respiration, tan, pump pre-stage et gestion des fédérations. Rien ne te surprendra le jour J.",
-  },
-  {
-    level: 'Level 5',
-    icon: '🎯',
-    title: 'Sessions & Accompagnement',
-    desc: "Coaching 1-1 avec Manael, suivi Premium 3 mois ou accès VIP. Pour aller plus loin avec un œil d'expert.",
-  },
-  {
-    level: 'Bonus',
-    icon: '⚡',
-    title: 'Mobilité & Vacuum',
-    desc: "Mobilité de hanche, colonne et activation musculaire complète. Plus le module Vacuum — l'arme secrète des pros.",
-  },
-]
+
 
 /* ─── ICONS ─── */
 function StarIcon() {
@@ -147,27 +107,59 @@ function DownloadIcon() {
   )
 }
 
+function LockIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+  )
+}
+
 /* ─── COACH BANNER ─── */
 function CoachBanner() {
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-gold-900/40 via-gold-800/20 to-gold-900/40 border-y border-gold-500/15">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.06),transparent_70%)]" />
-      <div className="main-container relative z-10 py-5 sm:py-6">
-        <p className="text-center text-xs text-gold-400 uppercase tracking-[0.15em] font-semibold mb-4">
-          Coachés par Manael · Résultats prouvés en compétition
+      <div className="main-container relative z-10 py-6 sm:py-8">
+        <p className="text-center text-xs text-gold-400 uppercase tracking-[0.15em] font-semibold mb-6">
+          Coachés par Manaël · Résultats prouvés en compétition
         </p>
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:gap-x-8">
-          {COACHED_ATHLETES.map((athlete, i) => (
-            <div key={i} className="flex items-center gap-2 group">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-gold-400 to-gold-700 flex items-center justify-center text-[10px] font-bold text-bg-primary flex-shrink-0">
-                {athlete.name.charAt(0)}
-              </div>
-              <div className="leading-tight">
-                <p className="text-xs font-semibold text-white group-hover:text-gold-400 transition-colors">{athlete.name}</p>
-                <p className="text-[10px] text-gold-500/80">{athlete.handle}</p>
-              </div>
-            </div>
-          ))}
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
+          {COACHED_ATHLETES.map((athlete, i) => {
+            const rawHandle = athlete.handle.replace('@', '');
+            const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(athlete.name)}&background=d4a843&color=050505&bold=true`;
+            return (
+              <a
+                key={i}
+                href={`https://instagram.com/${rawHandle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-2.5 pr-5 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-gold-500/40 transition-all duration-300 group shadow-lg shadow-black/20"
+              >
+                <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-gold-900/50 border border-gold-500/30">
+                  <img
+                    src={`https://unavatar.io/instagram/${rawHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
+                    alt={`Profil de ${athlete.name}`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.onerror = null; // Evite boucle infinie
+                      e.target.src = fallbackUrl;
+                    }}
+                  />
+                </div>
+                <div className="leading-tight">
+                  <p className="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">
+                    {athlete.name}
+                  </p>
+                  <p className="text-[11px] text-gray-400 group-hover:text-gold-500/80 transition-colors mt-0.5">
+                    {athlete.handle}
+                  </p>
+                </div>
+              </a>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -175,7 +167,7 @@ function CoachBanner() {
 }
 
 /* ─── NAVBAR ─── */
-function Navbar() {
+function Navbar({ onSkoolTeaser }) {
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50)
@@ -188,24 +180,24 @@ function Navbar() {
       <div className="main-container flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <img
-            src="/clients/manael/logoPE.jpg"
+            src="/clients/manael/logoPE.png"
             alt="Logo Posing Empire"
-            className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-contain bg-black"
+            className="h-10 w-10 sm:h-10 sm:w-10 rounded-md object-contain bg-black"
           />
-          <span className="font-bold text-sm sm:text-base tracking-widest text-gold-gradient uppercase">
-            POSING EMPIRE
-          </span>
         </div>
         <div className="flex items-center gap-3 sm:gap-5">
           <a href="#poses" className="hidden sm:block text-sm text-gray-300 hover:text-gold-400 transition-colors">
             Poses
           </a>
-          <a href="#programme" className="hidden sm:block text-sm text-gray-300 hover:text-gold-400 transition-colors">
-            Programme
-          </a>
+
           <a href="#avis" className="hidden sm:block text-sm text-gray-300 hover:text-gold-400 transition-colors">
             Avis
           </a>
+
+          <button onClick={onSkoolTeaser} className="hidden md:block text-sm text-gray-300 hover:text-gold-400 transition-colors font-medium">
+            Skool
+          </button>
+
           <a
             href={SKOOL_URL}
             target="_blank"
@@ -217,6 +209,115 @@ function Navbar() {
         </div>
       </div>
     </nav>
+  )
+}
+
+/* ─── HERO VIDEO CARD ─── */
+const HERO_VIDEOS = [
+  '/Video/NewManaëlPosing.MP4',
+  '/Video/OldManaëlPosing.MP4',
+  '/Video/Fix1.mov',
+]
+
+function HeroVideoCard() {
+  const containerRef = useRef(null)
+  const videoRef = useRef(null)
+  const [isHovering, setIsHovering] = useState(false)
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+  const lastZoneRef = useRef(-1)
+
+  const getZone = useCallback((e) => {
+    if (!containerRef.current) return 0
+    const rect = containerRef.current.getBoundingClientRect()
+    const relY = e.clientY - rect.top
+    const pct = relY / rect.height
+    if (pct < 0.33) return 0
+    if (pct < 0.66) return 1
+    return 2
+  }, [])
+
+  const handleMouseMove = useCallback((e) => {
+    const zone = getZone(e)
+    if (zone !== lastZoneRef.current) {
+      lastZoneRef.current = zone
+      setCurrentVideoIndex(zone)
+      if (videoRef.current) {
+        videoRef.current.load()
+        videoRef.current.play().catch(() => { })
+      }
+    }
+  }, [getZone])
+
+  const handleMouseEnter = useCallback((e) => {
+    setIsHovering(true)
+    lastZoneRef.current = -1
+    handleMouseMove(e)
+  }, [handleMouseMove])
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovering(false)
+    lastZoneRef.current = -1
+    if (videoRef.current) {
+      videoRef.current.pause()
+    }
+  }, [])
+
+  // Auto-play when video index changes while hovering
+  useEffect(() => {
+    if (isHovering && videoRef.current) {
+      videoRef.current.load()
+      videoRef.current.play().catch(() => { })
+    }
+  }, [currentVideoIndex, isHovering])
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full max-w-[280px] sm:max-w-sm lg:max-w-md mx-auto lg:mx-0 animate-float flex justify-center lg:justify-end order-1 lg:order-2 cursor-pointer"
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="relative w-full">
+        <div className="absolute -inset-3 bg-gradient-to-br from-gold-400/8 via-gold-600/5 to-transparent rounded-3xl blur-2xl" />
+        <div className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-gold-900/30">
+          {/* Photo statique */}
+          <img
+            src="/clients/manael/manael.jpg"
+            alt="Manaël — Coach Posing Expert, Fondateur de Posing Empire"
+            className={`w-full h-auto object-cover transition-opacity duration-300 ${isHovering ? 'opacity-0' : 'opacity-100'}`}
+            loading="eager"
+            fetchPriority="high"
+          />
+          {/* Vidéo hover */}
+          <video
+            ref={videoRef}
+            key={HERO_VIDEOS[currentVideoIndex]}
+            src={HERO_VIDEOS[currentVideoIndex]}
+            muted
+            playsInline
+            loop
+            preload="metadata"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isHovering ? 'opacity-100' : 'opacity-0'}`}
+          />
+          {/* Zone hover hint */}
+          <div className={`absolute inset-0 transition-opacity duration-300 ${isHovering ? 'opacity-0' : 'opacity-100'}`}>
+            <div className="mt-50 absolute inset-0 flex items-center justify-center">
+              <div className="bg-black/40 backdrop-blur-sm rounded-full px-3 py-2.5 flex items-center gap-2 border border-white/10">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-gold-400"><path d="M5 3l14 9-14 9V3z" /></svg>
+                <span className="text-white text-[10px] font-semibold uppercase tracking-widest">Hover pour voir</span>
+              </div>
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+            <p className="font-bold text-base text-white text-center">Manaël</p>
+            <p className="text-gold-400 text-xs font-medium text-center uppercase tracking-widest">
+              Coach Posing · Fondateur du Posing Empire
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -253,18 +354,15 @@ function Hero({ onPDF }) {
 
             {/* Accroche */}
             <p className="text-gray-300 text-sm sm:text-base max-w-lg mx-auto lg:mx-0 mb-6 leading-relaxed">
-              La méthode conçue par un coach IFBB certifié pour faire de ton posing une{' '}
-              <strong className="text-white">arme compétitive</strong>
-              {' '}— poses classiques, symétrie parfaite, transitions fluides.{' '}
-              <strong className="text-gold-400">+3 places minimum</strong> dès ta prochaine compétition.
+              Je vous offre 16 fiches explicatives des poses mandatory pour chaque catégorie et toutes les fédérations.
             </p>
 
             {/* Checklist */}
             <ul className="space-y-2.5 mb-8 max-w-sm mx-auto lg:mx-0 text-left">
               {[
-                '10 modules progressifs · 50+ vidéos HD exclusives',
-                'Poses, transitions & présence scénique maîtrisée',
-                'Coaching 1-1 disponible directement avec Manael',
+                '16 fiches explicatives',
+                'Les poses mandatory, quart de tour...',
+                'Catégorie classique physique et bodybuilding.',
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm text-gray-300">
                   <svg className="flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" strokeWidth="2.5" strokeLinecap="round">
@@ -278,52 +376,16 @@ function Hero({ onPDF }) {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center gap-3.5 justify-center lg:justify-start">
               <button onClick={onPDF} className="btn-primary-gold btn-hero animate-pulse-gold w-full sm:w-auto">
-                Télécharger les 16 Poses Gratuitement <DownloadIcon />
+                Télécharger les 16 Poses <DownloadIcon />
               </button>
               <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary-gold btn-hero w-full sm:w-auto">
                 Accéder au Programme →
               </a>
             </div>
-
-            {/* Social proof */}
-            <div className="mt-8 flex items-center gap-3 justify-center lg:justify-start">
-              <div className="flex -space-x-2">
-                {['K', 'S', 'T', 'A'].map((l, i) => (
-                  <div
-                    key={i}
-                    className="w-7 h-7 rounded-full bg-gradient-to-br from-gold-400 to-gold-700 flex items-center justify-center text-xs font-bold text-bg-primary border-2 border-bg-primary"
-                  >
-                    {l}
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs sm:text-sm text-gray-400">
-                Déjà <strong className="text-white">200+ athlètes</strong> formés à la méthode
-              </p>
-            </div>
           </div>
 
-          {/* ── Photo Coach ── */}
-          <div className="w-full max-w-[280px] sm:max-w-sm lg:max-w-md mx-auto lg:mx-0 animate-float flex justify-center lg:justify-end order-1 lg:order-2">
-            <div className="relative w-full">
-              <div className="absolute -inset-3 bg-gradient-to-br from-gold-400/20 via-gold-600/10 to-transparent rounded-3xl blur-2xl" />
-              <div className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-gold-900/30">
-                <img
-                  src="/clients/manael/manael.jpg"
-                  alt="Manael — Coach Posing Expert, Fondateur de Posing Empire"
-                  className="w-full h-auto object-cover"
-                  loading="eager"
-                  fetchPriority="high"
-                />
-                <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                  <p className="font-bold text-base text-white text-center">Manael</p>
-                  <p className="text-gold-400 text-xs font-medium text-center uppercase tracking-widest">
-                    Coach Posing · Fondateur Posing Empire
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* ── Photo Coach avec Hover Vidéo ── */}
+          <HeroVideoCard />
 
         </div>
       </div>
@@ -348,51 +410,7 @@ function SectionHeading({ white, gold, subtitle }) {
   )
 }
 
-/* ─── PROGRAMME ─── */
-function Programme() {
-  return (
-    <section id="programme" className="section-padding relative bg-black/40">
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-gold-600 rounded-full blur-[180px] opacity-5" />
-      </div>
-      <div className="main-container relative z-10">
-        <SectionHeading
-          white="LE PROGRAMME "
-          gold="COMPLET"
-          subtitle="De tes premières poses aux finales nationales — chaque module te rapproche du podium."
-        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {MODULES.map((mod, i) => (
-            <article
-              key={i}
-              className="card-glass p-5 sm:p-6 opacity-0 animate-fade-up group"
-              style={{ animationDelay: `${i * 80}ms`, animationFillMode: 'forwards' }}
-            >
-              <div className="flex items-start gap-3">
-                <span className="text-xl leading-none mt-0.5 flex-shrink-0" role="img" aria-hidden="true">{mod.icon}</span>
-                <div className="min-w-0">
-                  <span className="text-xs font-bold text-gold-500 uppercase tracking-widest mb-1 block">{mod.level}</span>
-                  <h3 className="font-bold text-white text-sm sm:text-base mb-1.5 group-hover:text-gold-400 transition-colors">
-                    {mod.title}
-                  </h3>
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{mod.desc}</p>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="text-center mt-10 sm:mt-12">
-          <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold">
-            Accéder au Programme Complet <ArrowRight />
-          </a>
-          <p className="text-gray-500 text-xs mt-2">Accès sur Skool · Rejoins 200+ athlètes</p>
-        </div>
-      </div>
-    </section>
-  )
-}
 
 /* ─── POSES GALLERY ─── */
 function PosesGallery({ onImageClick, onPDF }) {
@@ -402,7 +420,7 @@ function PosesGallery({ onImageClick, onPDF }) {
         <SectionHeading
           white="LES 16 POSES "
           gold="CLASSIQUES"
-          subtitle="Placements précis, erreurs à éviter, corrections de symétrie — chaque pose décortiquée pour que tu ne laisses aucun point sur la table."
+          subtitle="Chaque pose détaillée de A à Z pour une maitrise parfaite."
         />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5">
@@ -417,16 +435,16 @@ function PosesGallery({ onImageClick, onPDF }) {
               aria-label={`Voir ${pose.title} en détail`}
               onKeyDown={(e) => e.key === 'Enter' && onImageClick(index)}
             >
-              <div className="aspect-[3/4] overflow-hidden">
+              <div className="aspect-[3/4] overflow-hidden relative">
                 <img
                   src={pose.src}
                   alt={`${pose.title} — Pose classique bodybuilding Posing Empire`}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-              </div>
-              <div className="py-2 px-3 text-center">
-                <p className="text-xs font-semibold text-gold-400 tracking-wide">{pose.title}</p>
+                <div className="absolute bottom-0 left-0 right-0 px-3 pt-8 pb-2 bg-gradient-to-t from-black/80 to-transparent">
+                  <p className="text-xs font-semibold text-gold-400 tracking-wide text-center">{pose.title}</p>
+                </div>
               </div>
             </div>
           ))}
@@ -444,6 +462,94 @@ function PosesGallery({ onImageClick, onPDF }) {
   )
 }
 
+/* ─── YOUTUBE SECTION ─── */
+function YoutubeSection() {
+  const containerRef = useRef(null)
+  const playerDivRef = useRef(null)
+  const playerRef = useRef(null)
+  const [active, setActive] = useState(false)
+
+  // Charge l'API YouTube une seule fois globalement
+  useEffect(() => {
+    if (!window.YT) {
+      const tag = document.createElement('script')
+      tag.src = 'https://www.youtube.com/iframe_api'
+      document.head.appendChild(tag)
+    }
+  }, [])
+
+  // IntersectionObserver : déclenche le player quand la section arrive en vue
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActive(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.4 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  // Crée le player YT dès que l'API est prête et active=true
+  useEffect(() => {
+    if (!active || !playerDivRef.current) return
+
+    const initPlayer = () => {
+      if (playerRef.current) return
+      playerRef.current = new window.YT.Player(playerDivRef.current, {
+        videoId: 'ZUXbjlT-Lmc',
+        playerVars: {
+          autoplay: 1,
+          rel: 0,
+          modestbranding: 1,
+        },
+        events: {
+          onReady: (e) => {
+            e.target.setVolume(25)
+            e.target.playVideo()
+          },
+        },
+      })
+    }
+
+    if (window.YT && window.YT.Player) {
+      initPlayer()
+    } else {
+      window.onYouTubeIframeAPIReady = initPlayer
+    }
+  }, [active])
+
+  return (
+    <section className="section-padding relative bg-black border-y border-gold-500/10" ref={containerRef}>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.05),transparent_70%)]" />
+      <div className="main-container relative z-10">
+        <SectionHeading
+          white="LA MÉTHODE EN "
+          gold="ACTION"
+          subtitle="Vois Manaël coacher en live. Chaque détail compte, chaque pose a une raison d'être."
+        />
+        <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-black/60">
+          <div className="aspect-video w-full bg-black relative">
+            {!active && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-10">
+                <div className="w-16 h-16 rounded-full bg-gold-500/20 border border-gold-500 flex items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-gold-400 ml-1"><path d="M5 3l14 9-14 9V3z" /></svg>
+                </div>
+              </div>
+            )}
+            <div ref={playerDivRef} className="w-full h-full" />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ─── REVIEWS ─── */
 function Reviews() {
   return (
@@ -453,7 +559,7 @@ function Reviews() {
         <SectionHeading
           white="ILS ONT "
           gold="DOMINÉ LA SCÈNE"
-          subtitle="Des compétiteurs amateurs aux pros IFBB — voici ce que la méthode Posing Empire a concrètement changé pour eux."
+          subtitle="De compétiteurs amateurs à bodybuilder profesionnels — voici l'impact direct de la méthode, du programme Skool et des sessions de corrections en Live hebdomadaires."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
@@ -475,8 +581,22 @@ function Reviews() {
 
               {/* Author */}
               <footer className="flex items-center gap-3 pt-4 mt-auto border-t border-white/5">
-                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gold-500/40 flex-shrink-0 bg-gradient-to-br from-gold-400 to-gold-700">
-                  <img src={review.avatar} alt={review.name} className="w-full h-full object-cover" loading="lazy" />
+                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gold-500/40 flex-shrink-0 bg-gold-900">
+                  {(() => {
+                    const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(review.name)}&background=d4a843&color=050505&bold=true`;
+                    return (
+                      <img
+                        src={`https://unavatar.io/instagram/${review.avatarHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
+                        alt={review.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = fallbackUrl;
+                        }}
+                      />
+                    );
+                  })()}
                 </div>
                 <div>
                   <cite className="font-semibold text-sm text-white not-italic block">{review.name}</cite>
@@ -485,6 +605,286 @@ function Reviews() {
               </footer>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── VIDEO TESTIMONIALS ─── */
+const VIDEO_TESTIMONIALS = [
+  { src: '/Video/AvisRobby.MP4', name: 'Robby', role: 'Men\'s Physique' },
+  { src: '/Video/AvisMolina.MOV', name: 'Molina', role: 'Bodybuilder' },
+  { src: '/Video/AvisWarren.MP4', name: 'Warren', role: 'Bodybuilder' },
+]
+
+function VideoTestimonialCard({ src, name, role }) {
+  const videoRef = useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const [hovering, setHovering] = useState(false)
+
+  const toggle = () => {
+    if (!videoRef.current) return
+    if (playing) {
+      videoRef.current.pause()
+      setPlaying(false)
+    } else {
+      videoRef.current.play().catch(() => { })
+      setPlaying(true)
+    }
+  }
+
+  return (
+    <div
+      className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-xl shadow-black/40 cursor-pointer group"
+      onClick={toggle}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      role="button"
+      aria-label={`Témoignage vidéo de ${name}`}
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        playsInline
+        preload="metadata"
+        className="w-full aspect-[9/16] object-cover"
+        onEnded={() => setPlaying(false)}
+      />
+
+      {/* Overlay gradient bas */}
+      <div className="absolute bottom-0 left-0 right-0 pt-10 pb-4 px-4 bg-gradient-to-t from-black/90 to-transparent z-10">
+        <p className="font-bold text-white text-sm">{name}</p>
+        <p className="text-gold-400 text-xs mt-0.5">{role}</p>
+      </div>
+
+      {/* Play / Pause icon centré */}
+      <div className={`absolute inset-0 flex items-center justify-center z-20 transition-opacity duration-200 ${playing && !hovering ? 'opacity-0' : 'opacity-100'}`}>
+        <div className="w-14 h-14 rounded-full bg-black/60 border border-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+          {playing
+            ? <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
+            : <svg width="18" height="18" viewBox="0 0 24 24" fill="white" className="ml-1"><path d="M5 3l14 9-14 9V3z" /></svg>
+          }
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function VideoTestimonials() {
+  return (
+    <section className="section-padding relative bg-black/30">
+      <div className="main-container">
+        <SectionHeading
+          white="ILS EN PARLENT "
+          gold="EN VIDÉO"
+          subtitle="Les retours authentiques de nos athlètes après leurs sessions de correction live."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+          {VIDEO_TESTIMONIALS.map((v, i) => (
+            <VideoTestimonialCard key={i} {...v} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── TRANSFO GALLERY ─── */
+const TRANSFOS = [
+  { src: '/clients/transfo/T1.png', label: 'Transformation 1' },
+  { src: '/clients/transfo/T2.png', label: 'Transformation 2' },
+  { src: '/clients/transfo/T3.png', label: 'Transformation 3' },
+  { src: '/clients/transfo/T4.jpeg', label: 'Transformation 4' },
+]
+
+function TransfoGallery() {
+  const [active, setActive] = useState(0)
+  const total = TRANSFOS.length
+  const prev = () => setActive(p => (p - 1 + total) % total)
+  const next = () => setActive(p => (p + 1) % total)
+
+  return (
+    <section className="section-padding relative bg-black/40">
+      <div className="main-container">
+        <SectionHeading
+          white="TRANSFORMATIONS "
+          gold="POSING"
+          subtitle="Les résultats concrets des athlètes couchés par Manaël"
+        />
+        <div className="relative max-w-3xl mx-auto">
+          <div className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-black/50">
+            <img
+              key={active}
+              src={TRANSFOS[active].src}
+              alt={TRANSFOS[active].label}
+              className="w-full h-auto object-contain animate-fade-in select-none"
+              loading="lazy"
+            />
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
+              {TRANSFOS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActive(i)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${i === active ? 'bg-gold-400 scale-125' : 'bg-white/30 hover:bg-white/60'}`}
+                  aria-label={`Voir transformation ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={prev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 border border-white/10 hover:bg-gold-600/80 text-white flex items-center justify-center transition-all z-10"
+            aria-label="Transformation précédente"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m15 18-6-6 6-6" /></svg>
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 border border-white/10 hover:bg-gold-600/80 text-white flex items-center justify-center transition-all z-10"
+            aria-label="Transformation suivante"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m9 18 6-6-6-6" /></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── PRO CARDS ─── */
+const PROCARDS = [
+  '/clients/procards/PROcard1.jpeg',
+  '/clients/procards/PROcard2.jpeg',
+  '/clients/procards/PROcard3.jpg',
+  '/clients/procards/PROcard4.jpg',
+  '/clients/procards/PROcard5.jpg',
+  '/clients/procards/PROcard6.JPG',
+  '/clients/procards/PROcard7.jpg',
+  '/clients/procards/PROcard8.jpg',
+  '/clients/procards/PROcard9.jpg',
+  '/clients/procards/PROcard10.jpg',
+]
+
+function ProCardsSection() {
+  return (
+    <section className="section-padding relative bg-black/60 border-y border-gold-500/10">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.06),transparent_60%)]" />
+      <div className="main-container relative z-10">
+        <SectionHeading
+          white="IFBB "
+          gold="PRO CARDS"
+          subtitle="Les athlètes coachés par Manaël qui ont décroché leur carte Pro IFBB — la reconnaissance ultime du circuit professionnel."
+        />
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+          {PROCARDS.map((src, i) => (
+            <div
+              key={i}
+              className="relative rounded-xl overflow-hidden border border-gold-500/15 hover:border-gold-500/50 transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-black/40 group"
+            >
+              <img
+                src={src}
+                alt={`IFBB Pro Card athlète ${i + 1} — coaché par Manaël`}
+                className="w-full h-auto object-cover select-none"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
+                <span className="text-xs font-bold text-gold-400 uppercase tracking-widest">IFBB Pro</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── SKOOL COMING SOON ─── */
+/* ─── COUNTDOWN HOOK ─── */
+const SKOOL_OPEN_DATE = new Date('2026-05-09T00:00:00')
+
+function useCountdown(target) {
+  const calc = () => {
+    const diff = Math.max(0, target - Date.now())
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / (1000 * 60)) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+    }
+  }
+  const [time, setTime] = useState(calc)
+  useEffect(() => {
+    const t = setInterval(() => setTime(calc()), 1000)
+    return () => clearInterval(t)
+  }, [])
+  return time
+}
+
+function CountdownUnit({ value, label }) {
+  return (
+    <div className="flex flex-col items-center">
+      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl bg-black/70 border border-gold-500/40 backdrop-blur flex items-center justify-center shadow-[0_0_20px_rgba(212,168,67,0.15)]">
+        <span className="font-black text-xl sm:text-3xl text-gold-gradient tabular-nums">
+          {String(value).padStart(2, '0')}
+        </span>
+      </div>
+      <span className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-widest mt-2 font-medium">{label}</span>
+    </div>
+  )
+}
+
+function SkoolComingSoon() {
+  const { days, hours, minutes, seconds } = useCountdown(SKOOL_OPEN_DATE)
+
+  return (
+    <section className="section-padding relative overflow-hidden bg-black border-y border-gold-500/10">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.08),transparent_60%)]" />
+      <div className="main-container relative z-10 text-center">
+        <SectionHeading
+          white="OUVERTURE DU SKOOL : "
+          gold="POSING EMPIRE"
+          subtitle="La communauté privée numéro 1 pour les compétiteurs. Masterclass inédites, lives de correction, et l'intégralité du programme Posing Empire."
+        />
+
+        <div className="max-w-4xl mx-auto mt-10">
+          <div className="relative rounded-3xl overflow-hidden border border-gold-500/20 shadow-[0_0_50px_-15px_rgba(212,168,67,0.2)]">
+            {/* Image affichée en entier, légèrement floutée */}
+            <div className="relative w-full flex items-center justify-center bg-bg-primary">
+              <img
+                src="/skool/Skool.png"
+                alt="Plateforme Skool Posing Empire"
+                className="w-full h-auto object-contain blur-[3px] opacity-60 select-none"
+              />
+
+              {/* Overlay léger */}
+              <div className="absolute inset-0 bg-black/40" />
+
+              {/* Contenu centré */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 gap-5">
+                {/* Cadenas avec l'animation pulse */}
+                <div className="animate-pulse-gold w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gold-600/20 shadow-[0_0_50px_rgba(212,168,67,0.5)] border border-gold-500 flex items-center justify-center text-gold-400 backdrop-blur-sm">
+                  <LockIcon />
+                </div>
+
+                {/* Compte à rebours */}
+                <div className="flex items-start gap-2 sm:gap-4">
+                  <CountdownUnit value={days} label="Jours" />
+                  <span className="text-gold-400 font-black text-2xl sm:text-4xl mt-3 sm:mt-5 leading-none">:</span>
+                  <CountdownUnit value={hours} label="Heures" />
+                  <span className="text-gold-400 font-black text-2xl sm:text-4xl mt-3 sm:mt-5 leading-none">:</span>
+                  <CountdownUnit value={minutes} label="Min" />
+                  <span className="text-gold-400 font-black text-2xl sm:text-4xl mt-3 sm:mt-5 leading-none">:</span>
+                  <CountdownUnit value={seconds} label="Sec" />
+                </div>
+
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold-500/50 bg-black/70 backdrop-blur">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-sm font-bold text-gray-200 uppercase tracking-widest">Accès Verrouillé</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -540,13 +940,13 @@ function BeforeAfter() {
             aria-label={`Comparaison avant/après coaching posing : curseur à ${Math.round(sliderPos)}%`}
           >
             {/* Image de fond : Avant */}
-            <img src="/clients/avant/apres/avant.png" alt="Posing avant le coaching Posing Empire" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
+            <img src="/clients/avant-apres/apres.png" alt="Posing avant le coaching Posing Empire" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
             <div className="absolute top-3 left-3 bg-black/70 text-white px-2.5 py-1 rounded-full text-xs font-bold uppercase backdrop-blur-sm z-10 border border-white/10">
               Avant
             </div>
             {/* Overlay clipé : Après */}
             <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}>
-              <img src="/clients/avant/apres/apres.png" alt="Posing après le coaching Posing Empire" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
+              <img src="/clients/avant-apres/avant.png" alt="Posing après le coaching Posing Empire" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
               <div className="absolute top-3 right-3 bg-gold-600/80 text-white px-2.5 py-1 rounded-full text-xs font-bold uppercase backdrop-blur-sm border border-gold-400/30">
                 Après
               </div>
@@ -635,7 +1035,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
               </div>
               <h3 className="font-black text-xl sm:text-2xl text-white mb-1.5 tracking-tight">
                 {mode === 'pdf'
-                  ? <><span className="text-gold-gradient">16 Poses Classiques</span> — PDF Offert</>
+                  ? <><span className="text-gold-gradient">16 Poses Classiques</span> <br /> PDF Offert</>
                   : <>Rejoins <span className="text-gold-gradient">Posing Empire</span></>
                 }
               </h3>
@@ -654,7 +1054,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
                 <input
                   id="p-name" type="text" name="name"
                   value={formData.name} onChange={handleChange}
-                  placeholder="Ton prénom et nom" required
+                  placeholder="Prénom et nom" required
                   autoComplete="name" className="input-gold"
                 />
               </div>
@@ -677,13 +1077,12 @@ function FormPopup({ onClose, mode = 'pdf' }) {
                 />
               </div>
               <div>
-                <label htmlFor="p-instagram" className="popup-label">Instagram</label>
+                <label htmlFor="p-instagram" className="popup-label">Instagram *</label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gold-500/60 text-sm select-none">@</span>
                   <input
                     id="p-instagram" type="text" name="instagram"
                     value={formData.instagram} onChange={handleChange}
-                    placeholder="ton.instagram" className="input-gold pl-7"
+                    placeholder="@ton.instagram" required className="input-gold pl-9"
                   />
                 </div>
               </div>
@@ -812,14 +1211,80 @@ function Footer() {
         </div>
 
         <div className="flex justify-center gap-3 mb-8">
-          <a href="https://www.instagram.com/manael" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-white/5 rounded-full hover:bg-gold-600/20 hover:text-gold-400 transition-all text-gray-400" aria-label="Instagram de Manael — Posing Empire">
+          <a href="https://www.instagram.com/manael" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-white/5 rounded-full hover:bg-gold-600/20 hover:text-gold-400 transition-all text-gray-400" aria-label="Instagram de Manaël — Posing Empire">
             <InstagramIcon />
           </a>
         </div>
 
-        <p className="text-gray-600 text-xs">&copy; {new Date().getFullYear()} Posing Empire by Manael. Tous droits réservés.</p>
+        <p className="text-gray-600 text-xs">&copy; {new Date().getFullYear()} Posing Empire by Manaël. Tous droits réservés.</p>
       </div>
     </footer>
+  )
+}
+
+/* ─── TEASER VIDEO POPUP ─── */
+function SkoolTeaserPopup({ onClose }) {
+  useEffect(() => {
+    const fn = (e) => e.key === 'Escape' && onClose()
+    document.addEventListener('keydown', fn)
+    return () => document.removeEventListener('keydown', fn)
+  }, [onClose])
+
+  return (
+    <div className="lightbox-overlay animate-fade-in flex items-center justify-center p-4 z-[60]" onClick={onClose}>
+      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-bg-primary rounded-2xl border border-gold-500/20 shadow-2xl" onClick={e => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/50 hover:bg-gold-600/80 text-white transition-all border border-white/10" aria-label="Fermer le teaser">
+          <CloseIcon />
+        </button>
+        <div className="relative aspect-video bg-black flex items-center justify-center group overflow-hidden">
+          <img src="/clients/manael/manael.jpg" alt="Teaser Skool" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-40 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gold-500 flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(212,168,67,0.4)]">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-black ml-1"><path d="M5 3l14 9-14 9V3z" /></svg>
+            </div>
+            <p className="text-gold-400 font-bold uppercase tracking-widest text-sm drop-shadow-md">Trailer Officiel</p>
+            <p className="text-white/80 text-xs mt-1.5 font-medium bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">En cours de montage — Prochainement</p>
+          </div>
+        </div>
+
+        {/* Programme du Skool */}
+        <div className="p-6 sm:p-8 bg-black/80 border-b border-gold-500/10 text-left">
+          <h4 className="text-sm font-black text-white mb-5 tracking-widest uppercase">Au Programme de Skool :</h4>
+          <ul className="space-y-4">
+            <li className="flex items-start gap-4">
+              <svg className="flex-shrink-0 mt-0.5 text-gold-400" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6 9 17l-5-5" /></svg>
+              <div>
+                <span className="font-semibold text-gray-200 text-sm block leading-tight">10 modules progressifs & 50+ vidéos HD exclusives</span>
+                <span className="text-gray-400 text-xs mt-1 block">Accès illimité à la théorie, aux astuces secrètes de compétition et à l'analyse morphologique.</span>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <svg className="flex-shrink-0 mt-0.5 text-gold-400" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6 9 17l-5-5" /></svg>
+              <div>
+                <span className="font-semibold text-gray-200 text-sm block leading-tight">Poses, transitions & présence scénique maîtrisées</span>
+                <span className="text-gray-400 text-xs mt-1 block">Routines fluides, contrôle de la respiration et prestance pour dominer le plateau dès le premier pas.</span>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <svg className="flex-shrink-0 mt-0.5 text-gold-400" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6 9 17l-5-5" /></svg>
+              <div>
+                <span className="font-semibold text-gray-200 text-sm block leading-tight">Coaching en 1-1 immédiat = Corrections Live Hebdomadaires</span>
+                <span className="text-gray-400 text-xs mt-1 block">Feedback visuel en temps réel via webcam avec Manaël pour détruire tes imperfections et asymétries.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div className="p-6 sm:p-8 bg-gradient-to-t from-black to-bg-primary text-center">
+          <h3 className="text-xl sm:text-2xl font-black text-white mb-2 tracking-tight">Rejoins l&apos;élite sur <span className="text-gold-gradient">Skool</span></h3>
+          <p className="text-gray-400 text-sm mb-6 max-w-md mx-auto leading-relaxed">Le seul programme immersif pour maîtriser son posing, analyser ses physiques et monter sur scène avec 100% de certitude.</p>
+          <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex" onClick={onClose}>
+            Accéder à la plateforme <ArrowRight />
+          </a>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -827,6 +1292,7 @@ function Footer() {
 function App() {
   const [popupMode, setPopupMode] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(null)
+  const [showTeaser, setShowTeaser] = useState(false)
 
   // Auto-popup after 8s pour proposer le PDF gratuit
   useEffect(() => {
@@ -835,22 +1301,43 @@ function App() {
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = (popupMode || lightboxIndex !== null) ? 'hidden' : ''
-  }, [popupMode, lightboxIndex])
+    document.body.style.overflow = (popupMode || lightboxIndex !== null || showTeaser) ? 'hidden' : ''
+  }, [popupMode, lightboxIndex, showTeaser])
+
+  // Désactiver click droit et drag sur toutes les images du site
+  useEffect(() => {
+    const preventImageAction = (e) => {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault()
+      }
+    }
+    document.addEventListener('contextmenu', preventImageAction)
+    document.addEventListener('dragstart', preventImageAction)
+
+    return () => {
+      document.removeEventListener('contextmenu', preventImageAction)
+      document.removeEventListener('dragstart', preventImageAction)
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-bg-primary text-white">
-      <Navbar />
+      <Navbar onSkoolTeaser={() => setShowTeaser(true)} />
       <Hero onPDF={() => setPopupMode('pdf')} />
       <CoachBanner />
       <PosesGallery onImageClick={setLightboxIndex} onPDF={() => setPopupMode('pdf')} />
-      <Programme />
-      <Reviews />
       <BeforeAfter />
+      <TransfoGallery />
+      <ProCardsSection />
+      <Reviews />
+      <VideoTestimonials />
+      <YoutubeSection />
+      <SkoolComingSoon />
       <Footer />
 
       {popupMode && <FormPopup mode={popupMode} onClose={() => setPopupMode(false)} />}
       {lightboxIndex !== null && <Lightbox initialIndex={lightboxIndex} onClose={() => setLightboxIndex(null)} />}
+      {showTeaser && <SkoolTeaserPopup onClose={() => setShowTeaser(false)} />}
     </div>
   )
 }
