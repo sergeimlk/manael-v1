@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 
 /* ═══════════════════════════════════════════════
    CONFIGURATION
@@ -464,50 +465,18 @@ function PosesGallery({ onImageClick, onPDF }) {
 
 /* ─── YOUTUBE SECTION ─── */
 function YoutubeSection() {
-  const containerRef = useRef(null)
   const playerDivRef = useRef(null)
   const playerRef = useRef(null)
   const [active, setActive] = useState(false)
 
-  // Charge l'API YouTube une seule fois globalement
-  useEffect(() => {
-    if (!window.YT) {
-      const tag = document.createElement('script')
-      tag.src = 'https://www.youtube.com/iframe_api'
-      document.head.appendChild(tag)
-    }
-  }, [])
-
-  // IntersectionObserver : déclenche le player quand la section arrive en vue
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setActive(true)
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.4 }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  // Crée le player YT dès que l'API est prête et active=true
-  useEffect(() => {
-    if (!active || !playerDivRef.current) return
+  const handlePlay = () => {
+    setActive(true)
 
     const initPlayer = () => {
       if (playerRef.current) return
       playerRef.current = new window.YT.Player(playerDivRef.current, {
         videoId: 'ZUXbjlT-Lmc',
-        playerVars: {
-          autoplay: 1,
-          rel: 0,
-          modestbranding: 1,
-        },
+        playerVars: { autoplay: 1, rel: 0, modestbranding: 1 },
         events: {
           onReady: (e) => {
             e.target.setVolume(25)
@@ -517,15 +486,19 @@ function YoutubeSection() {
       })
     }
 
+    // Charge l'API si pas encore présente
     if (window.YT && window.YT.Player) {
       initPlayer()
     } else {
+      const tag = document.createElement('script')
+      tag.src = 'https://www.youtube.com/iframe_api'
       window.onYouTubeIframeAPIReady = initPlayer
+      document.head.appendChild(tag)
     }
-  }, [active])
+  }
 
   return (
-    <section className="section-padding relative bg-black border-y border-gold-500/10" ref={containerRef}>
+    <section className="section-padding relative bg-black border-y border-gold-500/10">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.05),transparent_70%)]" />
       <div className="main-container relative z-10">
         <SectionHeading
@@ -535,12 +508,26 @@ function YoutubeSection() {
         />
         <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-black/60">
           <div className="aspect-video w-full bg-black relative">
+            {/* Thumbnail cliquable */}
             {!active && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-10">
-                <div className="w-16 h-16 rounded-full bg-gold-500/20 border border-gold-500 flex items-center justify-center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-gold-400 ml-1"><path d="M5 3l14 9-14 9V3z" /></svg>
+              <button
+                onClick={handlePlay}
+                className="absolute inset-0 w-full h-full group"
+                aria-label="Lancer la vidéo"
+              >
+                <img
+                  src="https://img.youtube.com/vi/ZUXbjlT-Lmc/maxresdefault.jpg"
+                  alt="Manaël — Coaching Posing Live"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-300" />
+                {/* Bouton play centré */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gold-500 flex items-center justify-center shadow-[0_0_40px_rgba(212,168,67,0.5)] group-hover:scale-110 transition-transform duration-200">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" className="text-black ml-1"><path d="M5 3l14 9-14 9V3z" /></svg>
+                  </div>
                 </div>
-              </div>
+              </button>
             )}
             <div ref={playerDivRef} className="w-full h-full" />
           </div>
@@ -712,7 +699,7 @@ function TransfoGallery() {
           gold="POSING"
           subtitle="Les résultats concrets des athlètes couchés par Manaël"
         />
-        <div className="relative max-w-3xl mx-auto">
+        <div className="relative max-w-sm mx-auto">
           <div className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-black/50">
             <img
               key={active}
@@ -754,16 +741,15 @@ function TransfoGallery() {
 
 /* ─── PRO CARDS ─── */
 const PROCARDS = [
-  '/clients/procards/PROcard1.jpeg',
-  '/clients/procards/PROcard2.jpeg',
-  '/clients/procards/PROcard3.jpg',
-  '/clients/procards/PROcard4.jpg',
-  '/clients/procards/PROcard5.jpg',
-  '/clients/procards/PROcard6.JPG',
-  '/clients/procards/PROcard7.jpg',
-  '/clients/procards/PROcard8.jpg',
-  '/clients/procards/PROcard9.jpg',
-  '/clients/procards/PROcard10.jpg',
+  '/clients/procards/PROcard1.png',
+  '/clients/procards/PROcard2.png',
+  '/clients/procards/PROcard3.png',
+  '/clients/procards/PROcard4.png',
+  '/clients/procards/PROcard5.png',
+  '/clients/procards/PROcard6.png',
+  '/clients/procards/PROcard7.png',
+  '/clients/procards/PROcard8.png',
+  '/clients/procards/PROcard10.png',
 ]
 
 function ProCardsSection() {
@@ -793,6 +779,27 @@ function ProCardsSection() {
               </div>
             </div>
           ))}
+
+          {/* Card CTA — "Vous pouvez être le prochain" */}
+          <div className="relative rounded-xl overflow-hidden border border-gold-500/40 hover:border-gold-500/80 transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-gold-900/30 group">
+            <img
+              src="/clients/procards/PROcard1.png"
+              alt="Votre future Pro Card IFBB"
+              className="w-full h-auto object-cover select-none blur-sm scale-105 brightness-50"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30 flex flex-col items-center justify-center p-3 text-center">
+              <div className="w-8 h-8 rounded-full bg-gold-500/20 border border-gold-400 flex items-center justify-center mb-2">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-gold-400"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+              </div>
+              <p className="text-white font-black text-[10px] sm:text-xs leading-tight uppercase tracking-wide">
+                Vous pouvez être<br />
+                <span className="text-gold-400">le prochain</span><br />
+                à obtenir votre<br />
+                <span className="text-gold-300 font-black">PRO CARD !</span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -884,6 +891,12 @@ function SkoolComingSoon() {
                 </div>
               </div>
             </div>
+          </div>
+          {/* CTA sous l'image floue */}
+          <div className="text-center mt-6">
+            <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex">
+              Rejoindre Posing Empire <ArrowRight />
+            </a>
           </div>
         </div>
       </div>
@@ -1201,17 +1214,8 @@ function Footer() {
   return (
     <footer className="section-padding bg-black border-t border-gold-500/10">
       <div className="main-container text-center">
-        <h2 className="font-black tracking-widest text-xl sm:text-2xl text-gold-gradient mb-2 uppercase">POSING EMPIRE</h2>
-        <p className="text-gray-500 text-sm mb-8">La référence du coaching posing bodybuilding en France · Classic & Men&apos;s Physique</p>
-
-        <div className="flex justify-center mb-8">
-          <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold">
-            Rejoindre Posing Empire <ArrowRight />
-          </a>
-        </div>
-
         <div className="flex justify-center gap-3 mb-8">
-          <a href="https://www.instagram.com/manael" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-white/5 rounded-full hover:bg-gold-600/20 hover:text-gold-400 transition-all text-gray-400" aria-label="Instagram de Manaël — Posing Empire">
+          <a href="https://www.instagram.com/manael.posing" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-white/5 rounded-full hover:bg-gold-600/20 hover:text-gold-400 transition-all text-gray-400" aria-label="Instagram de Manaël — Posing Empire">
             <InstagramIcon />
           </a>
         </div>
@@ -1338,8 +1342,10 @@ function App() {
       {popupMode && <FormPopup mode={popupMode} onClose={() => setPopupMode(false)} />}
       {lightboxIndex !== null && <Lightbox initialIndex={lightboxIndex} onClose={() => setLightboxIndex(null)} />}
       {showTeaser && <SkoolTeaserPopup onClose={() => setShowTeaser(false)} />}
+      <Analytics />
     </div>
   )
 }
 
 export default App
+
