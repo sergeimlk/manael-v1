@@ -214,102 +214,26 @@ function Navbar({ onSkoolTeaser }) {
 }
 
 /* ─── HERO VIDEO CARD ─── */
+/* HERO VIDEOS — commenté temporairement (hébergement CDN requis pour les fichiers >100MB)
 const HERO_VIDEOS = [
   '/Video/NewManaëlPosing.MP4',
   '/Video/OldManaëlPosing.MP4',
   '/Video/Fix1.mov',
-]
+] */
 
 function HeroVideoCard() {
-  const containerRef = useRef(null)
-  const videoRef = useRef(null)
-  const [isHovering, setIsHovering] = useState(false)
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
-  const lastZoneRef = useRef(-1)
-
-  const getZone = useCallback((e) => {
-    if (!containerRef.current) return 0
-    const rect = containerRef.current.getBoundingClientRect()
-    const relY = e.clientY - rect.top
-    const pct = relY / rect.height
-    if (pct < 0.33) return 0
-    if (pct < 0.66) return 1
-    return 2
-  }, [])
-
-  const handleMouseMove = useCallback((e) => {
-    const zone = getZone(e)
-    if (zone !== lastZoneRef.current) {
-      lastZoneRef.current = zone
-      setCurrentVideoIndex(zone)
-      if (videoRef.current) {
-        videoRef.current.load()
-        videoRef.current.play().catch(() => { })
-      }
-    }
-  }, [getZone])
-
-  const handleMouseEnter = useCallback((e) => {
-    setIsHovering(true)
-    lastZoneRef.current = -1
-    handleMouseMove(e)
-  }, [handleMouseMove])
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovering(false)
-    lastZoneRef.current = -1
-    if (videoRef.current) {
-      videoRef.current.pause()
-    }
-  }, [])
-
-  // Auto-play when video index changes while hovering
-  useEffect(() => {
-    if (isHovering && videoRef.current) {
-      videoRef.current.load()
-      videoRef.current.play().catch(() => { })
-    }
-  }, [currentVideoIndex, isHovering])
-
   return (
-    <div
-      ref={containerRef}
-      className="w-full max-w-[280px] sm:max-w-sm lg:max-w-md mx-auto lg:mx-0 animate-float flex justify-center lg:justify-end order-1 lg:order-2 cursor-pointer"
-      onMouseEnter={handleMouseEnter}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className="w-full max-w-[280px] sm:max-w-sm lg:max-w-md mx-auto lg:mx-0 animate-float flex justify-center lg:justify-end order-1 lg:order-2">
       <div className="relative w-full">
         <div className="absolute -inset-3 bg-gradient-to-br from-gold-400/8 via-gold-600/5 to-transparent rounded-3xl blur-2xl" />
         <div className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-gold-900/30">
-          {/* Photo statique */}
           <img
             src="/clients/manael/manael.jpg"
             alt="Manaël — Coach Posing Expert, Fondateur de Posing Empire"
-            className={`w-full h-auto object-cover transition-opacity duration-300 ${isHovering ? 'opacity-0' : 'opacity-100'}`}
+            className="w-full h-auto object-cover"
             loading="eager"
             fetchPriority="high"
           />
-          {/* Vidéo hover */}
-          <video
-            ref={videoRef}
-            key={HERO_VIDEOS[currentVideoIndex]}
-            src={HERO_VIDEOS[currentVideoIndex]}
-            muted
-            playsInline
-            loop
-            preload="metadata"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isHovering ? 'opacity-100' : 'opacity-0'}`}
-          />
-          {/* Zone hover hint */}
-          <div className={`absolute inset-0 transition-opacity duration-300 ${isHovering ? 'opacity-0' : 'opacity-100'}`}>
-            <div className="mt-50 absolute inset-0 flex items-center justify-center">
-              <div className="bg-black/40 backdrop-blur-sm rounded-full px-3 py-2.5 flex items-center gap-2 border border-white/10">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-gold-400"><path d="M5 3l14 9-14 9V3z" /></svg>
-                <span className="text-white text-[10px] font-semibold uppercase tracking-widest">Hover pour voir</span>
-              </div>
-            </div>
-          </div>
           <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
             <p className="font-bold text-base text-white text-center">Manaël</p>
             <p className="text-gold-400 text-xs font-medium text-center uppercase tracking-widest">
@@ -810,21 +734,24 @@ function ProCardsSection() {
 /* ─── COUNTDOWN HOOK ─── */
 const SKOOL_OPEN_DATE = new Date('2026-05-09T00:00:00')
 
-function useCountdown(target) {
-  const calc = () => {
-    const diff = Math.max(0, target - Date.now())
-    return {
-      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((diff / (1000 * 60)) % 60),
-      seconds: Math.floor((diff / 1000) % 60),
-    }
+const getTimeLeft = (target) => {
+  const diff = Math.max(0, target - Date.now())
+  return {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
+    seconds: Math.floor((diff / 1000) % 60),
   }
-  const [time, setTime] = useState(calc)
+}
+
+function useCountdown(target) {
+  const [time, setTime] = useState(() => getTimeLeft(target))
+  
   useEffect(() => {
-    const t = setInterval(() => setTime(calc()), 1000)
+    const t = setInterval(() => setTime(getTimeLeft(target)), 1000)
     return () => clearInterval(t)
-  }, [])
+  }, [target])
+  
   return time
 }
 
