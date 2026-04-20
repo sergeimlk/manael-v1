@@ -236,7 +236,7 @@ function HeroVideoCard() {
           />
           <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
             <p className="font-bold text-base text-white text-center">Manaël</p>
-            <p className="text-gold-400 text-xs font-medium text-center uppercase tracking-widest">
+            <p className="text-gold-400 text-[9px] sm:text-xs font-medium text-center uppercase tracking-widest whitespace-nowrap">
               Coach Posing · Fondateur du Posing Empire
             </p>
           </div>
@@ -278,7 +278,7 @@ function Hero({ onPDF }) {
             </h1>
 
             {/* Accroche */}
-            <p className="text-gray-300 text-sm sm:text-base max-w-lg mx-auto lg:mx-0 mb-6 leading-relaxed">
+            <p className="text-gray-300 text-[13.5px] sm:text-base max-w-[360px] sm:max-w-lg mx-auto lg:mx-0 mb-6 leading-snug sm:leading-relaxed">
               Je vous offre 16 fiches explicatives des poses mandatory pour chaque catégorie et toutes les fédérations.
             </p>
 
@@ -345,7 +345,7 @@ function PosesGallery({ onImageClick, onPDF }) {
         <SectionHeading
           white="LES 16 POSES "
           gold="CLASSIQUES"
-          subtitle="Chaque pose détaillée de A à Z pour une maitrise parfaite."
+          subtitle="Chaque pose détaillée de A à Z pour les maitriser parfaitement."
         />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5">
@@ -591,9 +591,11 @@ function VideoTestimonials() {
           gold="EN VIDÉO"
           subtitle="Les retours authentiques de nos athlètes après leurs sessions de correction live."
         />
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:pb-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:gap-6 max-w-4xl mx-auto hide-scrollbar">
           {VIDEO_TESTIMONIALS.map((v, i) => (
-            <VideoTestimonialCard key={i} {...v} />
+            <div key={i} className="w-[85vw] max-w-[320px] sm:max-w-none sm:w-auto shrink-0 snap-center">
+              <VideoTestimonialCard {...v} />
+            </div>
           ))}
         </div>
       </div>
@@ -746,12 +748,12 @@ const getTimeLeft = (target) => {
 
 function useCountdown(target) {
   const [time, setTime] = useState(() => getTimeLeft(target))
-  
+
   useEffect(() => {
     const t = setInterval(() => setTime(getTimeLeft(target)), 1000)
     return () => clearInterval(t)
   }, [target])
-  
+
   return time
 }
 
