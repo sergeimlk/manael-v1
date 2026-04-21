@@ -37,7 +37,7 @@ const REVIEWS = [
     avatarHandle: 'azrielmmn',
     avatar: '/clients/avatars/azrielmmn.jpg',
     stars: 5,
-    comment: "Les corrections vidéos en live font toute la différence. Manaël identifie le moindre défaut d'asymétrie à travers l'écran et corrige ma posture en direct chaque semaine. C'est du vrai coaching 1-1 ultra précis qui te transforme.",
+    comment: "Merci beaucoup pour le cours tu es vraiment quelqu'un de très professionnel, qui explique simplement et clairement les poses, c'est très positif et l'ambiance était top. Je te recontacte au plus vite afin de fixer une seconde séance",
   },
   {
     name: 'Yann L.',
@@ -45,7 +45,7 @@ const REVIEWS = [
     avatarHandle: 'yann.let',
     avatar: '/clients/avatars/yannlet.jpg',
     stars: 5,
-    comment: "Le suivi live sur le Skool est inestimable. Avoir des retours directs chaque semaine pour revoir mes poses et mes transitions m'a donné une longueur d'avance colossale et la confiance indispensable pour décrocher mon titre.",
+    comment: "Séance très constructive avec Manaël, beaucoup de détails que je n'arrivais pas à mettre en place en distanciel. Cette session en présentiel m'a beaucoup aidé et de plus avoir un contact direct avec la personne qui te coach c'est encore plus sympa — donc si t'as l'occasion, fonce !",
   },
   {
     name: 'Roby',
@@ -53,7 +53,7 @@ const REVIEWS = [
     avatarHandle: 'roby_sxm971',
     avatar: '/clients/avatars/roby.jpg',
     stars: 5,
-    comment: "Rien ne remplace le feedback instantané du coaching hebdomadaire. Ces sessions live ont métamorphosé ma prestance scénique. Pouvoir réajuster mes angles directement face à la caméra a clairement débloqué mon potentiel.",
+    comment: "Merci pour cette session Manaël, ultra intéressant d'avoir le tout résumé et synthétisé pour avoir une base commune. Je sais pas encore si je serai là la semaine pro mais je vais tout faire pour !",
   },
 ]
 
@@ -126,7 +126,7 @@ function CoachBanner() {
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-gold-900/40 via-gold-800/20 to-gold-900/40 border-y border-gold-500/15 py-6 sm:py-8">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.06),transparent_70%)]" />
-      
+
       <div className="main-container relative z-10">
         <p className="text-center text-xs text-gold-400 uppercase tracking-[0.15em] font-semibold mb-6">
           Coachés par Manaël · Résultats prouvés en compétition
@@ -134,79 +134,79 @@ function CoachBanner() {
       </div>
 
       <div className="relative z-10 w-full flex overflow-hidden group">
-          <div className="flex shrink-0 animate-marquee gap-4 sm:gap-5 pr-4 sm:pr-5 select-none">
-            {COACHED_ATHLETES.map((athlete, i) => {
-              const rawHandle = athlete.handle.replace('@', '');
-              const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(athlete.name)}&background=d4a843&color=050505&bold=true`;
-              return (
-                <div
-                  key={`a-${i}`}
-                  // href={`https://instagram.com/${rawHandle}`}
-                  // target="_blank"
-                  // rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-2.5 pr-5 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-gold-500/40 transition-all duration-300 shadow-lg shadow-black/20"
-                >
-                  <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-gold-900/50 border border-gold-500/30">
-                    <img
-                      src={athlete.avatar || `https://unavatar.io/instagram/${rawHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
-                      alt={`Profil de ${athlete.name}`}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = fallbackUrl;
-                      }}
-                    />
-                  </div>
-                  <div className="leading-tight">
-                    <p className="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">
-                      {athlete.name}
-                    </p>
-                    <p className="text-[11px] text-gray-400 group-hover:text-gold-500/80 transition-colors mt-0.5">
-                      {athlete.handle}
-                    </p>
-                  </div>
+        <div className="flex shrink-0 animate-marquee gap-4 sm:gap-5 pr-4 sm:pr-5 select-none">
+          {COACHED_ATHLETES.map((athlete, i) => {
+            const rawHandle = athlete.handle.replace('@', '');
+            const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(athlete.name)}&background=d4a843&color=050505&bold=true`;
+            return (
+              <div
+                key={`a-${i}`}
+                // href={`https://instagram.com/${rawHandle}`}
+                // target="_blank"
+                // rel="noopener noreferrer"
+                className="flex items-center gap-3 p-2.5 pr-5 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-gold-500/40 transition-all duration-300 shadow-lg shadow-black/20"
+              >
+                <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-gold-900/50 border border-gold-500/30">
+                  <img
+                    src={athlete.avatar || `https://unavatar.io/instagram/${rawHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
+                    alt={`Profil de ${athlete.name}`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = fallbackUrl;
+                    }}
+                  />
                 </div>
-              );
-            })}
-          </div>
-          <div className="flex shrink-0 animate-marquee gap-4 sm:gap-5 pr-4 sm:pr-5 select-none" aria-hidden="true">
-            {COACHED_ATHLETES.map((athlete, i) => {
-              const rawHandle = athlete.handle.replace('@', '');
-              const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(athlete.name)}&background=d4a843&color=050505&bold=true`;
-              return (
-                <div
-                  key={`b-${i}`}
-                  // href={`https://instagram.com/${rawHandle}`}
-                  // target="_blank"
-                  // rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-2.5 pr-5 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-gold-500/40 transition-all duration-300 shadow-lg shadow-black/20"
-                >
-                  <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-gold-900/50 border border-gold-500/30">
-                    <img
-                      src={athlete.avatar || `https://unavatar.io/instagram/${rawHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
-                      alt={`Profil de ${athlete.name}`}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = fallbackUrl;
-                      }}
-                    />
-                  </div>
-                  <div className="leading-tight">
-                    <p className="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">
-                      {athlete.name}
-                    </p>
-                    <p className="text-[11px] text-gray-400 group-hover:text-gold-500/80 transition-colors mt-0.5">
-                      {athlete.handle}
-                    </p>
-                  </div>
+                <div className="leading-tight">
+                  <p className="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">
+                    {athlete.name}
+                  </p>
+                  <p className="text-[11px] text-gray-400 group-hover:text-gold-500/80 transition-colors mt-0.5">
+                    {athlete.handle}
+                  </p>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
+        <div className="flex shrink-0 animate-marquee gap-4 sm:gap-5 pr-4 sm:pr-5 select-none" aria-hidden="true">
+          {COACHED_ATHLETES.map((athlete, i) => {
+            const rawHandle = athlete.handle.replace('@', '');
+            const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(athlete.name)}&background=d4a843&color=050505&bold=true`;
+            return (
+              <div
+                key={`b-${i}`}
+                // href={`https://instagram.com/${rawHandle}`}
+                // target="_blank"
+                // rel="noopener noreferrer"
+                className="flex items-center gap-3 p-2.5 pr-5 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-gold-500/40 transition-all duration-300 shadow-lg shadow-black/20"
+              >
+                <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-gold-900/50 border border-gold-500/30">
+                  <img
+                    src={athlete.avatar || `https://unavatar.io/instagram/${rawHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
+                    alt={`Profil de ${athlete.name}`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = fallbackUrl;
+                    }}
+                  />
+                </div>
+                <div className="leading-tight">
+                  <p className="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">
+                    {athlete.name}
+                  </p>
+                  <p className="text-[11px] text-gray-400 group-hover:text-gold-500/80 transition-colors mt-0.5">
+                    {athlete.handle}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   )
 }
@@ -691,7 +691,7 @@ const PROCARDS = [
   { src: '/clients/procards/TOPArthur.png', name: 'Arthur' },
   { src: '/clients/procards/TOPAzriel.png', name: 'Azriel' },
   { src: '/clients/procards/TopClement.png', name: 'Clément' },
-  { src: '/clients/procards/TOPHerve.png', name: 'Hervé' },
+  { src: '/clients/procards/TOPHerve.png', name: 'Hervey' },
   { src: '/clients/procards/TOPJawed.png', name: 'Jawed' },
   { src: '/clients/procards/TOPJerome.png', name: 'Jérôme' },
   { src: '/clients/procards/TOPJulien.png', name: 'Julien' },
@@ -846,7 +846,7 @@ function SkoolComingSoon() {
           {/* CTA sous l'image floue */}
           <div className="text-center mt-6">
             <button disabled className="btn-primary-gold inline-flex opacity-50 cursor-not-allowed hover:-translate-y-0 shadow-none pointer-events-none">
-              Rejoindre Posing Empire 
+              Rejoindre Posing Empire
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="ml-1 opacity-80">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -877,10 +877,10 @@ function BeforeAfter() {
 
   useEffect(() => {
     const onMove = (e) => handleMove(e.clientX)
-    const onTouch = (e) => { 
+    const onTouch = (e) => {
       if (isDragging.current) {
-        e.preventDefault(); 
-        handleMove(e.touches[0].clientX) 
+        e.preventDefault();
+        handleMove(e.touches[0].clientX)
       }
     }
     document.addEventListener('mousemove', onMove)
@@ -934,15 +934,89 @@ function BeforeAfter() {
   )
 }
 
-/* ─── POPUP FORM ─── */
+/* ─── COUNTRY CODES ─── */
+const COUNTRY_CODES = [
+  { flag: '🇫🇷', name: 'France', dial: '+33' },
+  { flag: '🇧🇪', name: 'Belgique', dial: '+32' },
+  { flag: '🇨🇭', name: 'Suisse', dial: '+41' },
+  { flag: '🇱🇺', name: 'Luxembourg', dial: '+352' },
+  { flag: '🇲🇦', name: 'Maroc', dial: '+212' },
+  { flag: '🇩🇿', name: 'Algérie', dial: '+213' },
+  { flag: '🇹🇳', name: 'Tunisie', dial: '+216' },
+  { flag: '🇸🇳', name: 'Sénégal', dial: '+221' },
+  { flag: '🇨🇮', name: 'Côte d’Ivoire', dial: '+225' },
+  { flag: '🇨🇲', name: 'Cameroun', dial: '+237' },
+  { flag: '🇬🇧', name: 'Royaume-Uni', dial: '+44' },
+  { flag: '🇩🇪', name: 'Allemagne', dial: '+49' },
+  { flag: '🇪🇸', name: 'Espagne', dial: '+34' },
+  { flag: '🇮🇹', name: 'Italie', dial: '+39' },
+  { flag: '🇵🇹', name: 'Portugal', dial: '+351' },
+  { flag: '🇳🇱', name: 'Pays-Bas', dial: '+31' },
+  { flag: '🇵🇱', name: 'Pologne', dial: '+48' },
+  { flag: '🇷🇺', name: 'Russie', dial: '+7' },
+  { flag: '🇺🇸', name: 'États-Unis', dial: '+1' },
+  { flag: '🇨🇦', name: 'Canada', dial: '+1' },
+  { flag: '🇧🇷', name: 'Brésil', dial: '+55' },
+  { flag: '🇲🇽', name: 'Mexique', dial: '+52' },
+  { flag: '🇦🇪', name: 'Émirats arabes', dial: '+971' },
+  { flag: '🇸🇦', name: 'Arabie saoudite', dial: '+966' },
+  { flag: '🇶🇦', name: 'Qatar', dial: '+974' },
+  { flag: '🇯🇵', name: 'Japon', dial: '+81' },
+  { flag: '🇨🇳', name: 'Chine', dial: '+86' },
+  { flag: '🇮🇳', name: 'Inde', dial: '+91' },
+  { flag: '🇦🇺', name: 'Australie', dial: '+61' },
+  { flag: '🇬🇵', name: 'Guadeloupe', dial: '+590' },
+  { flag: '🇲🇶', name: 'Martinique', dial: '+596' },
+  { flag: '🇷🇪', name: 'Réunion', dial: '+262' },
+  { flag: '🇬🇳', name: 'Guyane', dial: '+594' },
+  { flag: '🇲🇨', name: 'Mayotte', dial: '+262' },
+]
+
 function FormPopup({ onClose, mode = 'pdf' }) {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', instagram: '', newsletter: false })
+  // phoneLocal : numéro saisi par l'utilisateur (sans indicatif)
+  const [formData, setFormData] = useState({ name: '', email: '', phoneLocal: '', instagram: '' })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  // Pays sélectionné — France par défaut
+  const [selectedCountry, setSelectedCountry] = useState(COUNTRY_CODES[0])
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef(null)
+
+  // Ferme le dropdown si clic en dehors
+  useEffect(() => {
+    if (!dropdownOpen) return
+    const handler = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [dropdownOpen])
+
+  /* ── Formatage : regroupe les chiffres par paquets de 2 ── */
+  const formatPhoneLocal = (raw) => {
+    const digits = raw.replace(/\D/g, '').slice(0, 15)
+    return digits.replace(/(\d{2})(?=\d)/g, '$1 ').trimEnd()
+  }
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
-    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }))
+    if (name === 'phoneLocal') {
+      setFormData(prev => ({ ...prev, phoneLocal: formatPhoneLocal(value) }))
+    } else if (name === 'instagram') {
+      const clean = value.startsWith('@') ? value : '@' + value.replace(/^@*/, '')
+      setFormData(prev => ({ ...prev, instagram: clean }))
+    } else {
+      setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }))
+    }
+  }
+
+  /* Numéro complet envoyé : indicatif pays + numéro local sans espaces */
+  const getFullPhone = () => {
+    const digits = formData.phoneLocal.replace(/\D/g, '')
+    return selectedCountry.dial + digits
   }
 
   const handleSubmit = async (e) => {
@@ -955,13 +1029,10 @@ function FormPopup({ onClose, mode = 'pdf' }) {
       form.target = 'hidden-iframe'
       form.style.display = 'none'
       const fields = {
-        [FORM_ENTRIES.name]: formData.name,
-        [FORM_ENTRIES.email]: formData.email,
-        [FORM_ENTRIES.phone]: formData.phone,
-        [FORM_ENTRIES.instagram]: formData.instagram,
-      }
-      if (formData.newsletter) {
-        fields[FORM_ENTRIES.newsletter] = 'Oui'
+        [FORM_ENTRIES.name]: formData.name.trim(),
+        [FORM_ENTRIES.email]: formData.email.trim(),
+        [FORM_ENTRIES.phone]: getFullPhone(),
+        [FORM_ENTRIES.instagram]: formData.instagram.trim(),
       }
       Object.entries(fields).forEach(([name, value]) => {
         const input = document.createElement('input')
@@ -1020,44 +1091,115 @@ function FormPopup({ onClose, mode = 'pdf' }) {
 
             {/* Formulaire */}
             <form onSubmit={handleSubmit} className="popup-body space-y-2">
+              {/* Prénom & Nom */}
               <div>
                 <label htmlFor="p-name" className="popup-label">Prénom et Nom *</label>
                 <input
                   id="p-name" type="text" name="name"
                   value={formData.name} onChange={handleChange}
-                  placeholder="Prénom et nom" required
-                  autoComplete="name" className="input-gold"
+                  placeholder="Prénom et Nom"
+                  required
+                  minLength={2}
+                  pattern="[A-Za-zÀ-ÿ\s\-']{2,}"
+                  title="Prénom et nom (lettres uniquement)"
+                  autoComplete="name"
+                  className="input-gold"
                 />
               </div>
+
+              {/* Email */}
               <div>
                 <label htmlFor="p-email" className="popup-label">Email *</label>
                 <input
                   id="p-email" type="email" name="email"
                   value={formData.email} onChange={handleChange}
-                  placeholder="ton@email.com" required
-                  autoComplete="email" className="input-gold"
+                  placeholder="ton@email.com"
+                  required
+                  autoComplete="email"
+                  className="input-gold"
                 />
               </div>
+
+              {/* Téléphone avec sélecteur de pays */}
               <div>
                 <label htmlFor="p-phone" className="popup-label">Téléphone *</label>
-                <input
-                  id="p-phone" type="tel" name="phone"
-                  value={formData.phone} onChange={handleChange}
-                  placeholder="+33 6 XX XX XX XX" required
-                  autoComplete="tel" className="input-gold"
-                />
-              </div>
-              <div>
-                <label htmlFor="p-instagram" className="popup-label">Instagram *</label>
-                <div className="relative">
+                <div className="flex items-center input-gold p-0 overflow-visible relative" ref={dropdownRef}>
+
+                  {/* Bouton indicatif — ouvre le dropdown */}
+                  <button
+                    type="button"
+                    onClick={() => setDropdownOpen(o => !o)}
+                    className="flex items-center gap-1.5 px-3 h-full min-h-[38px] border-r border-gold-500/20 bg-white/5 hover:bg-white/10 transition-colors shrink-0 rounded-l-[7px]"
+                    aria-haspopup="listbox"
+                    aria-expanded={dropdownOpen}
+                    aria-label="Sélectionner le pays"
+                  >
+                    <span className="text-base leading-none" aria-hidden="true">{selectedCountry.flag}</span>
+                    <span className="text-xs font-semibold text-gold-300 whitespace-nowrap">{selectedCountry.dial}</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className={`text-gold-400 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}>
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+
+                  {/* Dropdown liste de pays */}
+                  {dropdownOpen && (
+                    <ul
+                      role="listbox"
+                      className="absolute top-full left-0 z-50 mt-1 w-56 max-h-56 overflow-y-auto rounded-xl border border-gold-500/25 bg-[#111] shadow-2xl shadow-black/60 py-1"
+                    >
+                      {COUNTRY_CODES.map((country) => (
+                        <li
+                          key={country.name + country.dial}
+                          role="option"
+                          aria-selected={selectedCountry.name === country.name}
+                          onClick={() => {
+                            setSelectedCountry(country)
+                            setDropdownOpen(false)
+                          }}
+                          className={`flex items-center gap-2.5 px-3 py-2 cursor-pointer text-sm transition-colors ${selectedCountry.name === country.name
+                            ? 'bg-gold-500/15 text-gold-300'
+                            : 'text-gray-300 hover:bg-white/8 hover:text-white'
+                            }`}
+                        >
+                          <span className="text-base shrink-0" aria-hidden="true">{country.flag}</span>
+                          <span className="flex-1 truncate">{country.name}</span>
+                          <span className="text-gold-400 font-semibold shrink-0">{country.dial}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Champ numéro */}
                   <input
-                    id="p-instagram" type="text" name="instagram"
-                    value={formData.instagram} onChange={handleChange}
-                    placeholder="@ton.instagram" required className="input-gold"
+                    id="p-phone"
+                    type="tel"
+                    name="phoneLocal"
+                    value={formData.phoneLocal}
+                    onChange={handleChange}
+                    placeholder="06 00 00 00 00"
+                    required
+                    inputMode="numeric"
+                    autoComplete="tel-national"
+                    className="flex-1 bg-transparent outline-none px-3 py-2.5 text-sm text-white placeholder-gray-500"
                   />
                 </div>
               </div>
 
+              {/* Instagram */}
+              <div>
+                <label htmlFor="p-instagram" className="popup-label">Instagram *</label>
+                <input
+                  id="p-instagram" type="text" name="instagram"
+                  value={formData.instagram} onChange={handleChange}
+                  placeholder="@ton.instagram"
+                  required
+                  pattern="@[A-Za-z0-9._]{1,30}"
+                  title="Handle Instagram (ex: @mon.compte)"
+                  className="input-gold"
+                />
+              </div>
+
+              {/* Newsletter opt-in — décommenter pour réactiver
               <div className="flex items-start gap-2.5 pt-1.5 pb-1">
                 <input
                   id="p-newsletter" type="checkbox" name="newsletter"
@@ -1068,6 +1210,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
                   Je m'inscris à la newsletter pour recevoir des conseils exclusifs sur le posing et la compétition.
                 </label>
               </div>
+              */}
 
               <button
                 type="submit"
@@ -1144,7 +1287,7 @@ function Lightbox({ initialIndex, onClose }) {
     document.addEventListener('keydown', fn)
     document.body.style.overflow = 'hidden'
     return () => { document.removeEventListener('keydown', fn); document.body.style.overflow = '' }
-  }, [onClose])
+  }, [onClose, handleNext, handlePrev])
 
   const pose = POSES[currentIndex]
 
@@ -1292,7 +1435,7 @@ function App() {
 
   // Auto-popup after 5s pour proposer le PDF gratuit
   useEffect(() => {
-    const t = setTimeout(() => setPopupMode('pdf'), 5000)
+    const t = setTimeout(() => setPopupMode('pdf'), 30000)
     return () => clearTimeout(t)
   }, [])
 
@@ -1321,7 +1464,7 @@ function App() {
       <Navbar onSkoolTeaser={() => setShowTeaser(true)} />
       <Hero onPDF={() => setPopupMode('pdf')} onSkoolTeaser={() => setShowTeaser(true)} />
       <CoachBanner />
-      <PosesGallery onImageClick={() => setPopupMode('pdf')} onPDF={() => setPopupMode('pdf')} />
+      <PosesGallery onImageClick={(i) => setLightboxIndex(i)} onPDF={() => setPopupMode('pdf')} />
       <Reviews />
       <VideoTestimonials />
       <BeforeAfter />
