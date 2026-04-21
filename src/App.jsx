@@ -974,7 +974,7 @@ const COUNTRY_CODES = [
 
 function FormPopup({ onClose, mode = 'pdf' }) {
   // phoneLocal : numéro saisi par l'utilisateur (sans indicatif)
-  const [formData, setFormData] = useState({ name: '', email: '', phoneLocal: '', instagram: '' })
+  const [formData, setFormData] = useState({ name: '', email: '', phoneLocal: '', instagram: '', newsletter: true })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -1034,6 +1034,9 @@ function FormPopup({ onClose, mode = 'pdf' }) {
         [FORM_ENTRIES.phone]: getFullPhone(),
         [FORM_ENTRIES.instagram]: formData.instagram.trim(),
       }
+      if (formData.newsletter) {
+        fields[FORM_ENTRIES.newsletter] = 'Oui'
+      }
       Object.entries(fields).forEach(([name, value]) => {
         const input = document.createElement('input')
         input.name = name; input.value = value; form.appendChild(input)
@@ -1066,15 +1069,6 @@ function FormPopup({ onClose, mode = 'pdf' }) {
       <div className="popup-modal animate-slide-in">
         {/* Ligne dorée sommitale */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent" />
-
-        {/* Bouton fermer */}
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 p-1.5 rounded-full bg-white/5 hover:bg-white/15 text-gray-400 hover:text-white transition-all z-20"
-          aria-label="Fermer"
-        >
-          <CloseIcon />
-        </button>
 
         {!submitted ? (
           <>
@@ -1214,7 +1208,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
                 />
               </div>
 
-              {/* Newsletter opt-in — décommenter pour réactiver
+              {/* Newsletter opt-in */}
               <div className="flex items-start gap-2.5 pt-1.5 pb-1">
                 <input
                   id="p-newsletter" type="checkbox" name="newsletter"
@@ -1225,7 +1219,6 @@ function FormPopup({ onClose, mode = 'pdf' }) {
                   Je m'inscris à la newsletter pour recevoir des conseils exclusifs sur le posing et la compétition.
                 </label>
               </div>
-              */}
 
               <button
                 type="submit"
@@ -1244,7 +1237,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
 
             <div className="popup-footer">
               <p className="text-xs text-gray-600 text-center">
-                🔒 Données confidentielles · Jamais partagées · Désabonnement en 1 clic
+                🔒 Données confidentielles · Jamais partagées<br /> Désabonnement en 1 clic
               </p>
             </div>
           </>
@@ -1277,6 +1270,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
                 </a>
               </>
             )}
+            {/* Si c'est l'écran de succès pdf, on propose quand même un moyen de fermer une fois la condition remplie */}
             <button onClick={onClose} className="block mx-auto mt-3 text-sm text-gray-500 hover:text-gold-400 transition-colors">
               Fermer
             </button>
