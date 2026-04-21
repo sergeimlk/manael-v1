@@ -4,23 +4,24 @@ import { Analytics } from '@vercel/analytics/react'
 /* ═══════════════════════════════════════════════
    CONFIGURATION
    ═══════════════════════════════════════════════ */
-const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse'
+const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScDHW3TdNlZf_uofILISbCQBL2yg4B_ee5KCpYOW38DnV9r5Q/formResponse'
 const FORM_ENTRIES = {
-  name: 'entry.0000000001',
-  email: 'entry.0000000002',
-  phone: 'entry.0000000003',
-  instagram: 'entry.0000000004',
+  name: 'entry.1282747869',
+  email: 'entry.1889011114',
+  phone: 'entry.1776549513',
+  instagram: 'entry.2043937780',
+  newsletter: 'entry.1505155485'
 }
 const SKOOL_URL = 'https://www.skool.com/'
-const GOOGLE_DRIVE_PDF_URL = 'https://drive.google.com/file/d/YOUR_PDF_FILE_ID/view'
+const PDF_DOWNLOAD_URL = 'https://www.canva.com/design/DAHHOO_Yq8I/qY3SWUCP2YOoFGTHQLITdQ/view?utm_content=DAHHOO_Yq8I&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h981dfba2bd#6'
 
 const COACHED_ATHLETES = [
   { name: 'Azriel', handle: '@azrielmmn', title: 'IFBB Pro Classic', avatar: '/clients/avatars/azrielmmn.jpg' },
   { name: 'Yann L.', handle: '@yann.let', title: 'Champion de France', avatar: '/clients/avatars/yannlet.jpg' },
-  { name: 'Barbiscotto', handle: '@barbiscotto_vet_wnbfpro', title: 'NPC Competitor' },
-  { name: 'Imajor', handle: '@imajor_classic', title: 'Junior IFBB Elite' },
-  { name: 'Doc Athletic', handle: '@docathletic', title: "Men's Physique Pro" },
-  { name: 'Roby', handle: '@roby_sxm971', title: 'Classic Physique' },
+  { name: 'Barbiscotto', handle: '@barbiscotto_vet_wnbfpro', title: 'NPC Competitor', avatar: '/clients/avatars/barbiscotto.jpg' },
+  { name: 'Imajor', handle: '@imajor_classic', title: 'Junior IFBB Elite', avatar: '/clients/avatars/imajor.jpg' },
+  { name: 'Doc Athletic', handle: '@docathletic', title: "Men's Physique Pro", avatar: '/clients/avatars/docathletic.jpg' },
+  { name: 'Roby', handle: '@roby_sxm971', title: 'Classic Physique', avatar: '/clients/avatars/roby.jpg' },
 ]
 
 const POSES = Array.from({ length: 16 }, (_, i) => ({
@@ -50,6 +51,7 @@ const REVIEWS = [
     name: 'Roby',
     role: 'Classic Physique',
     avatarHandle: 'roby_sxm971',
+    avatar: '/clients/avatars/roby.jpg',
     stars: 5,
     comment: "Rien ne remplace le feedback instantané du coaching hebdomadaire. Ces sessions live ont métamorphosé ma prestance scénique. Pouvoir réajuster mes angles directement face à la caméra a clairement débloqué mon potentiel.",
   },
@@ -122,49 +124,89 @@ function LockIcon() {
 /* ─── COACH BANNER ─── */
 function CoachBanner() {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-r from-gold-900/40 via-gold-800/20 to-gold-900/40 border-y border-gold-500/15">
+    <div className="relative overflow-hidden bg-gradient-to-r from-gold-900/40 via-gold-800/20 to-gold-900/40 border-y border-gold-500/15 py-6 sm:py-8">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.06),transparent_70%)]" />
-      <div className="main-container relative z-10 py-6 sm:py-8">
+      
+      <div className="main-container relative z-10">
         <p className="text-center text-xs text-gold-400 uppercase tracking-[0.15em] font-semibold mb-6">
           Coachés par Manaël · Résultats prouvés en compétition
         </p>
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
-          {COACHED_ATHLETES.map((athlete, i) => {
-            const rawHandle = athlete.handle.replace('@', '');
-            const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(athlete.name)}&background=d4a843&color=050505&bold=true`;
-            return (
-              <a
-                key={i}
-                href={`https://instagram.com/${rawHandle}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-2.5 pr-5 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-gold-500/40 transition-all duration-300 group shadow-lg shadow-black/20"
-              >
-                <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-gold-900/50 border border-gold-500/30">
-                  <img
-                    src={athlete.avatar || `https://unavatar.io/instagram/${rawHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
-                    alt={`Profil de ${athlete.name}`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = fallbackUrl;
-                    }}
-                  />
-                </div>
-                <div className="leading-tight">
-                  <p className="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">
-                    {athlete.name}
-                  </p>
-                  <p className="text-[11px] text-gray-400 group-hover:text-gold-500/80 transition-colors mt-0.5">
-                    {athlete.handle}
-                  </p>
-                </div>
-              </a>
-            );
-          })}
-        </div>
       </div>
+
+      <div className="relative z-10 w-full flex overflow-hidden group">
+          <div className="flex shrink-0 animate-marquee gap-4 sm:gap-5 pr-4 sm:pr-5 select-none">
+            {COACHED_ATHLETES.map((athlete, i) => {
+              const rawHandle = athlete.handle.replace('@', '');
+              const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(athlete.name)}&background=d4a843&color=050505&bold=true`;
+              return (
+                <div
+                  key={`a-${i}`}
+                  // href={`https://instagram.com/${rawHandle}`}
+                  // target="_blank"
+                  // rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-2.5 pr-5 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-gold-500/40 transition-all duration-300 shadow-lg shadow-black/20"
+                >
+                  <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-gold-900/50 border border-gold-500/30">
+                    <img
+                      src={athlete.avatar || `https://unavatar.io/instagram/${rawHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
+                      alt={`Profil de ${athlete.name}`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = fallbackUrl;
+                      }}
+                    />
+                  </div>
+                  <div className="leading-tight">
+                    <p className="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">
+                      {athlete.name}
+                    </p>
+                    <p className="text-[11px] text-gray-400 group-hover:text-gold-500/80 transition-colors mt-0.5">
+                      {athlete.handle}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex shrink-0 animate-marquee gap-4 sm:gap-5 pr-4 sm:pr-5 select-none" aria-hidden="true">
+            {COACHED_ATHLETES.map((athlete, i) => {
+              const rawHandle = athlete.handle.replace('@', '');
+              const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(athlete.name)}&background=d4a843&color=050505&bold=true`;
+              return (
+                <div
+                  key={`b-${i}`}
+                  // href={`https://instagram.com/${rawHandle}`}
+                  // target="_blank"
+                  // rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-2.5 pr-5 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-gold-500/40 transition-all duration-300 shadow-lg shadow-black/20"
+                >
+                  <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 bg-gold-900/50 border border-gold-500/30">
+                    <img
+                      src={athlete.avatar || `https://unavatar.io/instagram/${rawHandle}?fallback=${encodeURIComponent(fallbackUrl)}`}
+                      alt={`Profil de ${athlete.name}`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = fallbackUrl;
+                      }}
+                    />
+                  </div>
+                  <div className="leading-tight">
+                    <p className="text-sm font-bold text-white group-hover:text-gold-400 transition-colors">
+                      {athlete.name}
+                    </p>
+                    <p className="text-[11px] text-gray-400 group-hover:text-gold-500/80 transition-colors mt-0.5">
+                      {athlete.handle}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
     </div>
   )
 }
@@ -268,7 +310,7 @@ function Hero({ onPDF, onSkoolTeaser }) {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold-500/30 bg-gold-900/20 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
-              <span className="text-xs text-gold-300 font-medium">PDF Gratuit · 16 Poses Classiques Offertes</span>
+              <span className="text-xs text-gold-300 font-medium">PDF Gratuit · 16 Poses Classic Offertes</span>
             </div>
 
             {/* H1 */}
@@ -365,7 +407,7 @@ function PosesGallery({ onImageClick, onPDF }) {
               <div className="aspect-[3/4] overflow-hidden relative">
                 <img
                   src={pose.src}
-                  alt={`${pose.title} — Pose classique bodybuilding Posing Empire`}
+                  alt={`${pose.title} — Pose Classic bodybuilding Posing Empire`}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -430,7 +472,7 @@ function YoutubeSection() {
         <SectionHeading
           white="LA MÉTHODE EN "
           gold="ACTION"
-          subtitle="Vois Manaël coacher en live. Chaque détail compte, chaque pose a une raison d'être."
+          subtitle="Explications détaillées des poses quart de tour"
         />
         <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl shadow-black/60">
           <div className="aspect-video w-full bg-black relative">
@@ -472,7 +514,7 @@ function Reviews() {
         <SectionHeading
           white="ILS ONT "
           gold="DOMINÉ LA SCÈNE"
-          subtitle="De compétiteurs amateurs à bodybuilder profesionnels — voici l'impact direct de la méthode, du programme Skool et des sessions de corrections en Live hebdomadaires."
+          subtitle="De compétiteurs amateurs à bodybuilder profesionnels — Voici l'impact de l'accompagnement PosingEmpire"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
@@ -526,60 +568,58 @@ function Reviews() {
 
 /* ─── VIDEO TESTIMONIALS ─── */
 const VIDEO_TESTIMONIALS = [
-  { src: '/Video/AvisRobby.MP4', name: 'Robby', role: 'Men\'s Physique' },
-  { src: '/Video/AvisMolina.MOV', name: 'Molina', role: 'Bodybuilder' },
-  { src: '/Video/AvisWarren.MP4', name: 'Warren', role: 'Bodybuilder' },
+  { videoId: '4qT_B9UB5VA', name: 'Romain', role: 'Compétiteur' },
+  { videoId: 'jcwHoi5LD9k', name: 'Adrien', role: 'Compétiteur' },
+  { videoId: 'zEYvKEfo1uI', name: 'Dylan', role: 'Compétiteur' },
+  { videoId: 'xjcNlndr2V8', name: 'Nicola', role: 'Compétiteur' },
+  { videoId: 'pjE4w-Xbyjg', name: 'Joan', role: 'Compétiteur' },
 ]
 
-function VideoTestimonialCard({ src, name, role }) {
-  const videoRef = useRef(null)
+function VideoTestimonialCard({ videoId, name, role }) {
   const [playing, setPlaying] = useState(false)
   const [hovering, setHovering] = useState(false)
 
-  const toggle = () => {
-    if (!videoRef.current) return
-    if (playing) {
-      videoRef.current.pause()
-      setPlaying(false)
-    } else {
-      videoRef.current.play().catch(() => { })
-      setPlaying(true)
-    }
-  }
-
   return (
     <div
-      className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-xl shadow-black/40 cursor-pointer group"
-      onClick={toggle}
+      className="relative rounded-2xl overflow-hidden border border-gold-500/20 shadow-xl shadow-black/40 group aspect-[9/16] bg-black"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
-      role="button"
-      aria-label={`Témoignage vidéo de ${name}`}
     >
-      <video
-        ref={videoRef}
-        src={src}
-        playsInline
-        preload="metadata"
-        className="w-full aspect-[9/16] object-cover"
-        onEnded={() => setPlaying(false)}
-      />
+      {playing ? (
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={`Témoignage de ${name}`}
+          className="absolute inset-0 w-full h-full border-0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      ) : (
+        <div
+          className="absolute inset-0 w-full h-full cursor-pointer"
+          onClick={() => setPlaying(true)}
+          role="button"
+          aria-label={`Lire le témoignage de ${name}`}
+        >
+          <img
+            src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+            alt={`Témoignage de ${name}`}
+            className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
+          />
 
-      {/* Overlay gradient bas */}
-      <div className="absolute bottom-0 left-0 right-0 pt-10 pb-4 px-4 bg-gradient-to-t from-black/90 to-transparent z-10">
-        <p className="font-bold text-white text-sm">{name}</p>
-        <p className="text-gold-400 text-xs mt-0.5">{role}</p>
-      </div>
+          {/* Overlay gradient bas */}
+          <div className="absolute bottom-0 left-0 right-0 pt-20 pb-4 px-4 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none">
+            <p className="font-bold text-white text-sm">{name}</p>
+            <p className="text-gold-400 text-xs mt-0.5">{role}</p>
+          </div>
 
-      {/* Play / Pause icon centré */}
-      <div className={`absolute inset-0 flex items-center justify-center z-20 transition-opacity duration-200 ${playing && !hovering ? 'opacity-0' : 'opacity-100'}`}>
-        <div className="w-14 h-14 rounded-full bg-black/60 border border-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-          {playing
-            ? <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>
-            : <svg width="18" height="18" viewBox="0 0 24 24" fill="white" className="ml-1"><path d="M5 3l14 9-14 9V3z" /></svg>
-          }
+          {/* Play icon centré */}
+          <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none transition-transform group-hover:scale-110">
+            <div className="w-14 h-14 rounded-full bg-black/60 border border-white/20 backdrop-blur-sm flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white" className="ml-1"><path d="M5 3l14 9-14 9V3z" /></svg>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -648,15 +688,16 @@ function TransfoGallery() {
 
 /* ─── PRO CARDS ─── */
 const PROCARDS = [
-  '/clients/procards/PROcard1.png',
-  '/clients/procards/PROcard2.png',
-  '/clients/procards/PROcard3.png',
-  '/clients/procards/PROcard4.png',
-  '/clients/procards/PROcard5.png',
-  '/clients/procards/PROcard6.png',
-  '/clients/procards/PROcard7.png',
-  '/clients/procards/PROcard8.png',
-  '/clients/procards/PROcard10.png',
+  { src: '/clients/procards/TOPArthur.png', name: 'Arthur' },
+  { src: '/clients/procards/TOPAzriel.png', name: 'Azriel' },
+  { src: '/clients/procards/TopClement.png', name: 'Clément' },
+  { src: '/clients/procards/TOPHerve.png', name: 'Hervé' },
+  { src: '/clients/procards/TOPJawed.png', name: 'Jawed' },
+  { src: '/clients/procards/TOPJerome.png', name: 'Jérôme' },
+  { src: '/clients/procards/TOPJulien.png', name: 'Julien' },
+  { src: '/clients/procards/TOPMael.png', name: 'Maël' },
+  { src: '/clients/procards/TOPYann.png', name: 'Yann' },
+  { src: '/clients/procards/TOPYann2.png', name: 'Yann' },
 ]
 
 function ProCardsSection() {
@@ -665,24 +706,24 @@ function ProCardsSection() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.06),transparent_60%)]" />
       <div className="main-container relative z-10">
         <SectionHeading
-          white="IFBB "
-          gold="PRO CARDS"
+          white="MES ATHLÈTES "
+          gold="SUR LE PODIUM"
           subtitle="Les athlètes coachés par Manaël qui ont décroché leur carte Pro IFBB — la reconnaissance ultime du circuit professionnel."
         />
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-          {PROCARDS.map((src, i) => (
+          {PROCARDS.map((pro, i) => (
             <div
               key={i}
               className="relative rounded-xl overflow-hidden border border-gold-500/15 hover:border-gold-500/50 transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-black/40 group"
             >
               <img
-                src={src}
-                alt={`IFBB Pro Card athlète ${i + 1} — coaché par Manaël`}
+                src={pro.src}
+                alt={`IFBB Pro Card athlète ${pro.name} — coaché par Manaël`}
                 className="w-full h-auto object-cover select-none"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3">
-                <span className="text-xs font-bold text-gold-400 uppercase tracking-widest">IFBB Pro</span>
+                <span className="text-xs font-bold text-gold-400 uppercase tracking-widest">{pro.name}</span>
               </div>
             </div>
           ))}
@@ -690,7 +731,7 @@ function ProCardsSection() {
           {/* Card CTA — "Vous pouvez être le prochain" */}
           <div className="relative rounded-xl overflow-hidden border border-gold-500/40 hover:border-gold-500/80 transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-gold-900/30 group">
             <img
-              src="/clients/procards/PROcard1.png"
+              src="/clients/procards/TOPArthur.png"
               alt="Votre future Pro Card IFBB"
               className="w-full h-auto object-cover select-none blur-sm scale-105 brightness-50"
               loading="lazy"
@@ -715,7 +756,7 @@ function ProCardsSection() {
 
 /* ─── SKOOL COMING SOON ─── */
 /* ─── COUNTDOWN HOOK ─── */
-const SKOOL_OPEN_DATE = new Date('2026-05-09T00:00:00')
+const SKOOL_OPEN_DATE = new Date('2026-05-09T00:00:00+02:00')
 
 const getTimeLeft = (target) => {
   const diff = Math.max(0, target - Date.now())
@@ -804,9 +845,13 @@ function SkoolComingSoon() {
           </div>
           {/* CTA sous l'image floue */}
           <div className="text-center mt-6">
-            <a href={SKOOL_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex">
-              Rejoindre Posing Empire <ArrowRight />
-            </a>
+            <button disabled className="btn-primary-gold inline-flex opacity-50 cursor-not-allowed hover:-translate-y-0 shadow-none pointer-events-none">
+              Rejoindre Posing Empire 
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="ml-1 opacity-80">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -832,7 +877,12 @@ function BeforeAfter() {
 
   useEffect(() => {
     const onMove = (e) => handleMove(e.clientX)
-    const onTouch = (e) => { e.preventDefault(); handleMove(e.touches[0].clientX) }
+    const onTouch = (e) => { 
+      if (isDragging.current) {
+        e.preventDefault(); 
+        handleMove(e.touches[0].clientX) 
+      }
+    }
     document.addEventListener('mousemove', onMove)
     document.addEventListener('mouseup', handleMouseUp)
     document.addEventListener('touchmove', onTouch, { passive: false })
@@ -886,11 +936,14 @@ function BeforeAfter() {
 
 /* ─── POPUP FORM ─── */
 function FormPopup({ onClose, mode = 'pdf' }) {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', instagram: '' })
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', instagram: '', newsletter: false })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target
+    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }))
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -906,6 +959,9 @@ function FormPopup({ onClose, mode = 'pdf' }) {
         [FORM_ENTRIES.email]: formData.email,
         [FORM_ENTRIES.phone]: formData.phone,
         [FORM_ENTRIES.instagram]: formData.instagram,
+      }
+      if (formData.newsletter) {
+        fields[FORM_ENTRIES.newsletter] = 'Oui'
       }
       Object.entries(fields).forEach(([name, value]) => {
         const input = document.createElement('input')
@@ -928,7 +984,6 @@ function FormPopup({ onClose, mode = 'pdf' }) {
   return (
     <div
       className="popup-overlay"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
       role="dialog"
       aria-modal="true"
       aria-label={mode === 'pdf' ? 'Télécharger les 16 poses gratuitement' : 'Rejoindre Posing Empire'}
@@ -937,20 +992,13 @@ function FormPopup({ onClose, mode = 'pdf' }) {
         {/* Ligne dorée sommitale */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent" />
 
-        {/* Bouton fermeture */}
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 z-20 p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all"
-          aria-label="Fermer"
-        >
-          <CloseIcon />
-        </button>
+
 
         {!submitted ? (
           <>
             {/* Header popup */}
             <div className="popup-header">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold-500/30 bg-gold-900/30 mb-3">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold-500/30 bg-gold-900/30 mb-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
                 <span className="text-xs text-gold-300 font-medium">
                   {mode === 'pdf' ? 'PDF Gratuit · Sans Engagement' : 'Posing Empire · Skool'}
@@ -958,20 +1006,20 @@ function FormPopup({ onClose, mode = 'pdf' }) {
               </div>
               <h3 className="font-black text-xl sm:text-2xl text-white mb-1.5 tracking-tight">
                 {mode === 'pdf'
-                  ? <><span className="text-gold-gradient">16 Poses Classiques</span> <br /> PDF Offert</>
+                  ? <><span className="text-gold-gradient">16 Poses Classic</span> <br /> PDF Offert</>
                   : <>Rejoins <span className="text-gold-gradient">Posing Empire</span></>
                 }
               </h3>
               <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
                 {mode === 'pdf'
-                  ? 'Entre tes informations pour recevoir immédiatement le PDF des 16 poses classiques.'
+                  ? 'Entre tes informations pour recevoir immédiatement le PDF des 16 poses Classic.'
                   : 'Crée ton accès et rejoins 200+ athlètes sur la plateforme Posing Empire.'
                 }
               </p>
             </div>
 
             {/* Formulaire */}
-            <form onSubmit={handleSubmit} className="popup-body space-y-3">
+            <form onSubmit={handleSubmit} className="popup-body space-y-2">
               <div>
                 <label htmlFor="p-name" className="popup-label">Prénom et Nom *</label>
                 <input
@@ -991,11 +1039,11 @@ function FormPopup({ onClose, mode = 'pdf' }) {
                 />
               </div>
               <div>
-                <label htmlFor="p-phone" className="popup-label">Téléphone</label>
+                <label htmlFor="p-phone" className="popup-label">Téléphone *</label>
                 <input
                   id="p-phone" type="tel" name="phone"
                   value={formData.phone} onChange={handleChange}
-                  placeholder="+33 6 XX XX XX XX"
+                  placeholder="+33 6 XX XX XX XX" required
                   autoComplete="tel" className="input-gold"
                 />
               </div>
@@ -1005,9 +1053,20 @@ function FormPopup({ onClose, mode = 'pdf' }) {
                   <input
                     id="p-instagram" type="text" name="instagram"
                     value={formData.instagram} onChange={handleChange}
-                    placeholder="@ton.instagram" required className="input-gold pl-9"
+                    placeholder="@ton.instagram" required className="input-gold"
                   />
                 </div>
+              </div>
+
+              <div className="flex items-start gap-2.5 pt-1.5 pb-1">
+                <input
+                  id="p-newsletter" type="checkbox" name="newsletter"
+                  checked={formData.newsletter} onChange={handleChange}
+                  className="mt-0.5 w-4 h-4 rounded border-gold-500/40 text-gold-500 focus:ring-gold-500 bg-black/50 shrink-0 cursor-pointer"
+                />
+                <label htmlFor="p-newsletter" className="text-[11px] text-gray-400 leading-tight cursor-pointer select-none">
+                  Je m'inscris à la newsletter pour recevoir des conseils exclusifs sur le posing et la compétition.
+                </label>
               </div>
 
               <button
@@ -1043,9 +1102,9 @@ function FormPopup({ onClose, mode = 'pdf' }) {
               <>
                 <h3 className="font-black text-xl text-white mb-2">C&apos;est parti !</h3>
                 <p className="text-gray-400 text-sm mb-5 leading-relaxed">
-                  Ton PDF des 16 poses classiques est prêt. Clique ci-dessous pour le télécharger maintenant.
+                  Ton PDF des 16 poses Classic est prêt. Clique ci-dessous pour le télécharger maintenant.
                 </p>
-                <a href={GOOGLE_DRIVE_PDF_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex">
+                <a href={PDF_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex">
                   Ouvrir mon PDF <DownloadIcon />
                 </a>
               </>
@@ -1102,7 +1161,7 @@ function Lightbox({ initialIndex, onClose }) {
         <img
           key={pose.id}
           src={pose.src}
-          alt={`${pose.title} — Pose classique bodybuilding Posing Empire`}
+          alt={`${pose.title} — Pose Classic bodybuilding Posing Empire`}
           className="max-w-full max-h-[85vh] rounded-xl border border-gold-500/20 shadow-2xl object-contain animate-fade-in"
         />
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur border border-gold-500/30">
@@ -1231,9 +1290,9 @@ function App() {
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [showTeaser, setShowTeaser] = useState(false)
 
-  // Auto-popup after 8s pour proposer le PDF gratuit
+  // Auto-popup after 5s pour proposer le PDF gratuit
   useEffect(() => {
-    const t = setTimeout(() => setPopupMode('pdf'), 8000)
+    const t = setTimeout(() => setPopupMode('pdf'), 5000)
     return () => clearTimeout(t)
   }, [])
 
@@ -1262,12 +1321,12 @@ function App() {
       <Navbar onSkoolTeaser={() => setShowTeaser(true)} />
       <Hero onPDF={() => setPopupMode('pdf')} onSkoolTeaser={() => setShowTeaser(true)} />
       <CoachBanner />
-      <PosesGallery onImageClick={setLightboxIndex} onPDF={() => setPopupMode('pdf')} />
+      <PosesGallery onImageClick={() => setPopupMode('pdf')} onPDF={() => setPopupMode('pdf')} />
+      <Reviews />
+      <VideoTestimonials />
       <BeforeAfter />
       <TransfoGallery />
       <ProCardsSection />
-      <Reviews />
-      <VideoTestimonials />
       <YoutubeSection />
       <SkoolComingSoon />
       <Footer />
