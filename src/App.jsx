@@ -24,7 +24,7 @@ const COACHED_ATHLETES = [
   { name: 'Roby', handle: '@roby_sxm971', title: 'Classic Physique', avatar: '/clients/avatars/roby.jpg' },
 ]
 
-const POSES = Array.from({ length: 16 }, (_, i) => ({
+const POSES = Array.from({ length: 20 }, (_, i) => ({
   id: i + 1,
   src: `/poses/${i + 1}.png`,
   title: `Pose ${i + 1}`,
@@ -310,7 +310,7 @@ function Hero({ onPDF, onSkoolTeaser }) {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold-500/30 bg-gold-900/20 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
-              <span className="text-xs text-gold-300 font-medium">PDF Gratuit · 16 Poses Classic Offertes</span>
+              <span className="text-xs text-gold-300 font-medium">PDF Gratuit · 20 Poses Classic Offertes</span>
             </div>
 
             {/* H1 */}
@@ -323,13 +323,13 @@ function Hero({ onPDF, onSkoolTeaser }) {
 
             {/* Accroche */}
             <p className="text-gray-300 text-[13.5px] sm:text-base max-w-[360px] sm:max-w-lg mx-auto lg:mx-0 mb-6 leading-snug sm:leading-relaxed">
-              Je vous offre 16 fiches explicatives des poses mandatories pour chaque catégorie et toutes les fédérations.
+              Je vous offre 20 fiches explicatives des poses mandatories pour chaque catégorie et toutes les fédérations.
             </p>
 
             {/* Checklist */}
             <ul className="space-y-2.5 mb-8 max-w-sm mx-auto lg:mx-0 text-left">
               {[
-                '16 fiches explicatives',
+                '20 fiches explicatives',
                 'Les poses mandatories, quarts de tour...',
                 'Catégories classic physique et bodybuilding',
               ].map((item, i) => (
@@ -345,7 +345,7 @@ function Hero({ onPDF, onSkoolTeaser }) {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center gap-3.5 justify-center lg:justify-start">
               <button onClick={onPDF} className="btn-primary-gold btn-hero animate-pulse-gold w-full sm:w-auto">
-                Télécharger les 16 Poses <DownloadIcon />
+                Télécharger les 20 Poses <DownloadIcon />
               </button>
               <button onClick={onSkoolTeaser} className="btn-secondary-gold btn-hero w-full sm:w-auto">
                 Accéder à la communauté Skool →
@@ -387,7 +387,7 @@ function PosesGallery({ onImageClick, onPDF }) {
     <section id="poses" className="section-padding relative">
       <div className="main-container">
         <SectionHeading
-          white="LES 16"
+          white="LES 20"
           gold=" POSES"
           subtitle="Chaque pose détaillée de A à Z pour les maitriser parfaitement."
         />
@@ -422,7 +422,7 @@ function PosesGallery({ onImageClick, onPDF }) {
         {/* Download CTA */}
         <div className="text-center mt-10 sm:mt-12">
           <button onClick={onPDF} className="btn-primary-gold">
-            Télécharger le PDF des 16 Poses <DownloadIcon />
+            Télécharger le PDF des 20 Poses <DownloadIcon />
           </button>
           <p className="text-gray-500 text-xs mt-2">100% gratuit · PDF téléchargeable instantanément</p>
         </div>
@@ -1061,7 +1061,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
       className="popup-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label={mode === 'pose-gate' ? 'Débloquer les poses' : mode === 'pdf' ? 'Télécharger les 16 poses gratuitement' : 'Rejoindre Posing Empire'}
+      aria-label={mode === 'pose-gate' ? 'Débloquer les poses' : mode === 'pdf' ? 'Télécharger les 20 poses gratuitement' : 'Rejoindre Posing Empire'}
     >
       <div className="popup-modal animate-slide-in">
         {/* Ligne dorée sommitale */}
@@ -1081,17 +1081,17 @@ function FormPopup({ onClose, mode = 'pdf' }) {
               </div>
               <h3 className="font-black text-xl sm:text-2xl text-white mb-1.5 tracking-tight">
                 {mode === 'pose-gate'
-                  ? <><span className="text-gold-gradient">Débloque les 16 Poses</span><br />en HD gratuitement</>
+                  ? <><span className="text-gold-gradient">Débloque les 20 Poses</span><br />en HD gratuitement</>
                   : mode === 'pdf'
-                    ? <><span className="text-gold-gradient">16 Poses Classic</span> <br /> PDF Offert</>
+                    ? <><span className="text-gold-gradient">20 Poses Classic</span> <br /> PDF Offert</>
                     : <>Rejoins <span className="text-gold-gradient">Posing Empire</span></>
                 }
               </h3>
               <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
                 {mode === 'pose-gate'
-                  ? 'Entre tes coordonnées pour accéder aux 16 poses en grand et télécharger le PDF gratuitement.'
+                  ? 'Entre tes coordonnées pour accéder aux 20 poses en grand et télécharger le PDF gratuitement.'
                   : mode === 'pdf'
-                    ? 'Entre tes informations pour recevoir immédiatement le PDF des 16 poses Classic.'
+                    ? 'Entre tes informations pour recevoir immédiatement le PDF des 20 poses Classic.'
                     : 'Crée ton accès et rejoins 200+ athlètes sur la plateforme Posing Empire.'
                 }
               </p>
@@ -1253,7 +1253,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
               <>
                 <h3 className="font-black text-xl text-white mb-2">C&apos;est parti !</h3>
                 <p className="text-gray-400 text-sm mb-5 leading-relaxed">
-                  Ton PDF des 16 poses Classic est prêt. Clique ci-dessous pour le télécharger maintenant.
+                  Ton PDF des 20 poses Classic est prêt. Clique ci-dessous pour le télécharger maintenant.
                 </p>
                 <a href={PDF_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-gold inline-flex">
                   Ouvrir mon PDF <DownloadIcon />
