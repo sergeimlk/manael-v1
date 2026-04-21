@@ -1048,7 +1048,11 @@ function FormPopup({ onClose, mode = 'pdf' }) {
       form.submit()
       document.body.removeChild(form)
       setSubmitted(true)
-    } catch { setSubmitted(true) }
+      if (onSuccess) onSuccess()
+    } catch {
+      setSubmitted(true)
+      if (onSuccess) onSuccess()
+    }
     finally { setLoading(false) }
   }
 
@@ -1057,7 +1061,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
       className="popup-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label={mode === 'pdf' ? 'Télécharger les 16 poses gratuitement' : 'Rejoindre Posing Empire'}
+      aria-label={mode === 'pose-gate' ? 'Débloquer les poses' : mode === 'pdf' ? 'Télécharger les 16 poses gratuitement' : 'Rejoindre Posing Empire'}
     >
       <div className="popup-modal animate-slide-in">
         {/* Ligne dorée sommitale */}
@@ -1072,19 +1076,23 @@ function FormPopup({ onClose, mode = 'pdf' }) {
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold-500/30 bg-gold-900/30 mb-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
                 <span className="text-xs text-gold-300 font-medium">
-                  {mode === 'pdf' ? 'PDF Gratuit · Sans Engagement' : 'Posing Empire · Skool'}
+                  {mode === 'pose-gate' ? '🔓 Accès Gratuit · Sans Engagement' : mode === 'pdf' ? 'PDF Gratuit · Sans Engagement' : 'Posing Empire · Skool'}
                 </span>
               </div>
               <h3 className="font-black text-xl sm:text-2xl text-white mb-1.5 tracking-tight">
-                {mode === 'pdf'
-                  ? <><span className="text-gold-gradient">16 Poses Classic</span> <br /> PDF Offert</>
-                  : <>Rejoins <span className="text-gold-gradient">Posing Empire</span></>
+                {mode === 'pose-gate'
+                  ? <><span className="text-gold-gradient">Débloque les 16 Poses</span><br />en HD gratuitement</>
+                  : mode === 'pdf'
+                    ? <><span className="text-gold-gradient">16 Poses Classic</span> <br /> PDF Offert</>
+                    : <>Rejoins <span className="text-gold-gradient">Posing Empire</span></>
                 }
               </h3>
               <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
-                {mode === 'pdf'
-                  ? 'Entre tes informations pour recevoir immédiatement le PDF des 16 poses Classic.'
-                  : 'Crée ton accès et rejoins 200+ athlètes sur la plateforme Posing Empire.'
+                {mode === 'pose-gate'
+                  ? 'Entre tes coordonnées pour accéder aux 16 poses en grand et télécharger le PDF gratuitement.'
+                  : mode === 'pdf'
+                    ? 'Entre tes informations pour recevoir immédiatement le PDF des 16 poses Classic.'
+                    : 'Crée ton accès et rejoins 200+ athlètes sur la plateforme Posing Empire.'
                 }
               </p>
             </div>
@@ -1433,11 +1441,44 @@ function App() {
   const [lightboxIndex, setLightboxIndex] = useState(null)
   const [showTeaser, setShowTeaser] = useState(false)
 
-  // Auto-popup after 5s pour proposer le PDF gratuit
+  // Formulaire déjà rempli cette session ?
+  const [formSubmitted, setFormSubmitted] = useState(
+    () => sessionStorage.getItem('pe_form_done') === '1'
+  )
+  // Index de la pose en attente (cliquée avant soumission)
+  const [pendingPoseIndex, setPendingPoseIndex] = useState(null)
+
+  // Clic sur une pose : gate si form pas encore rempli
+  const handlePoseClick = (i) => {
+    if (formSubmitted) {
+      setLightboxIndex(i)
+    } else {
+      setPendingPoseIndex(i)
+      setPopupMode('pose-gate')
+    }
+  }
+
+  // Appelé par FormPopup dès que le form est soumis avec succès
+  const handleFormSuccess = () => {
+    setFormSubmitted(true)
+    sessionStorage.setItem('pe_form_done', '1')
+  }
+
+  // Fermeture du popup : si form vient d'être rempli + pose en attente → ouvre lightbox
+  const handlePopupClose = () => {
+    setPopupMode(false)
+    if (pendingPoseIndex !== null && formSubmitted) {
+      setLightboxIndex(pendingPoseIndex)
+      setPendingPoseIndex(null)
+    }
+  }
+
+  // Auto-popup après 30s pour proposer le PDF gratuit (seulement si form pas encore rempli)
   useEffect(() => {
+    if (formSubmitted) return
     const t = setTimeout(() => setPopupMode('pdf'), 30000)
     return () => clearTimeout(t)
-  }, [])
+  }, [formSubmitted])
 
   useEffect(() => {
     document.body.style.overflow = (popupMode || lightboxIndex !== null || showTeaser) ? 'hidden' : ''
@@ -1464,7 +1505,7 @@ function App() {
       <Navbar onSkoolTeaser={() => setShowTeaser(true)} />
       <Hero onPDF={() => setPopupMode('pdf')} onSkoolTeaser={() => setShowTeaser(true)} />
       <CoachBanner />
-      <PosesGallery onImageClick={(i) => setLightboxIndex(i)} onPDF={() => setPopupMode('pdf')} />
+      <PosesGallery onImageClick={handlePoseClick} onPDF={() => setPopupMode('pdf')} />
       <Reviews />
       <VideoTestimonials />
       <BeforeAfter />
@@ -1474,7 +1515,7 @@ function App() {
       <SkoolComingSoon />
       <Footer />
 
-      {popupMode && <FormPopup mode={popupMode} onClose={() => setPopupMode(false)} />}
+      {popupMode && <FormPopup mode={popupMode} onSuccess={handleFormSuccess} onClose={handlePopupClose} />}
       {lightboxIndex !== null && <Lightbox initialIndex={lightboxIndex} onClose={() => setLightboxIndex(null)} />}
       {showTeaser && <SkoolTeaserPopup onClose={() => setShowTeaser(false)} />}
       <Analytics />
