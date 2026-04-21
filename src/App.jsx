@@ -1067,7 +1067,14 @@ function FormPopup({ onClose, mode = 'pdf' }) {
         {/* Ligne dorée sommitale */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent" />
 
-
+        {/* Bouton fermer */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 p-1.5 rounded-full bg-white/5 hover:bg-white/15 text-gray-400 hover:text-white transition-all z-20"
+          aria-label="Fermer"
+        >
+          <CloseIcon />
+        </button>
 
         {!submitted ? (
           <>
