@@ -1034,9 +1034,7 @@ function FormPopup({ onClose, mode = 'pdf' }) {
         [FORM_ENTRIES.phone]: getFullPhone(),
         [FORM_ENTRIES.instagram]: formData.instagram.trim(),
       }
-      if (formData.newsletter) {
-        fields[FORM_ENTRIES.newsletter] = 'Oui'
-      }
+      fields[FORM_ENTRIES.newsletter] = formData.newsletter ? 'Oui' : 'Non'
       Object.entries(fields).forEach(([name, value]) => {
         const input = document.createElement('input')
         input.name = name; input.value = value; form.appendChild(input)
